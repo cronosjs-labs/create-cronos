@@ -1,0 +1,21 @@
+{
+  "name": "cronos.js",
+  "version": "0.0.1",
+  "description": "",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": "./app.js",
+  "exports": {
+    ".": "./app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "simple-git": "^3.20.0"
+  }
+}
