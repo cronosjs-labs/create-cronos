@@ -118,7 +118,7 @@ const main = async () => {
 
             console.log(`    \x1b[1mcd ${name}`);
 
-            console.log("    run dev\n\x1b[0m");
+            console.log("    npm run dev\n\x1b[0m");
 
             console.log(
               "  📖 For more information, visit https://github.com/cronos-js\n"
