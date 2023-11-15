@@ -10155,7 +10155,7 @@ var main = async () => {
   const prompt = (query) => new Promise((resolve) => rl.question(query, resolve));
   const name = await prompt("  \u{1F4A1} Project name: ");
   const route = name === "." ? "." : `./${name}`;
-  const answer = tech == "react" ? await esm_default2({
+  const extraPackages = tech == "react" ? await esm_default2({
     message: "\u{1F4E6} Select extra packages:",
     choices: react_choices_default
   }) : tech == "express" ? await esm_default2({
@@ -10182,31 +10182,33 @@ var main = async () => {
         }
       });
     });
-    console.log("  \u{1F9E9} Installing extra packages...");
-    await new Promise((resolve, reject) => {
-      const installExtra = (0, import_child_process2.spawn)(
-        npmCommand,
-        ["--prefix", route, "install", ...answer],
-        {
-          stdio: "inherit"
-        }
-      );
-      installExtra.on("close", (code) => {
-        if (code !== 0) {
-          reject(new Error("Error installing extra packages"));
-        } else {
-          console.clear();
-          console.log("  \u{1F680} Project created successfully!\n");
-          console.log("  \u{1F4C2} To get started, run the following commands:\n");
-          console.log(`    \x1B[1mcd ${name}`);
-          console.log("    run dev\n\x1B[0m");
-          console.log(
-            "  \u{1F4D6} For more information, visit https://github.com/cronos-js\n"
-          );
-          resolve();
-        }
+    if (extraPackages?.length !== 0) {
+      console.log("  \u{1F9E9} Installing extra packages...");
+      await new Promise((resolve, reject) => {
+        const installExtra = (0, import_child_process2.spawn)(
+          npmCommand,
+          ["--prefix", route, "install", ...extraPackages],
+          {
+            stdio: "inherit"
+          }
+        );
+        installExtra.on("close", (code) => {
+          if (code !== 0) {
+            reject(new Error("Error installing extra packages"));
+          } else {
+            console.clear();
+            console.log("  \u{1F680} Project created successfully!\n");
+            console.log("  \u{1F4C2} To get started, run the following commands:\n");
+            console.log(`    \x1B[1mcd ${name}`);
+            console.log("    run dev\n\x1B[0m");
+            console.log(
+              "  \u{1F4D6} For more information, visit https://github.com/cronos-js\n"
+            );
+            resolve();
+          }
+        });
       });
-    });
+    }
   } catch (error) {
     console.error("  \u{1F628} An error occurred while installing packages.\n", error);
     process.exit(1);

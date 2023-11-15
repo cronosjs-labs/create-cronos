@@ -57,7 +57,7 @@ const main = async () => {
   const route = name === "." ? "." : `./${name}`;
 
   //! EXTRA PACKAGES
-  const answer: string[] | null =
+  const extraPackages: string[] | null =
     tech == "react"
       ? await checkbox({
           message: "📦 Select extra packages:",
@@ -96,39 +96,41 @@ const main = async () => {
       });
     });
 
-    console.log("  🧩 Installing extra packages...");
+    if (extraPackages?.length !== 0) {
+      console.log("  🧩 Installing extra packages...");
 
-    await new Promise<void>((resolve, reject) => {
-      const installExtra = spawn(
-        npmCommand,
-        ["--prefix", route, "install", ...answer!],
-        {
-          stdio: "inherit",
-        }
-      );
+      await new Promise<void>((resolve, reject) => {
+        const installExtra = spawn(
+          npmCommand,
+          ["--prefix", route, "install", ...extraPackages!],
+          {
+            stdio: "inherit",
+          }
+        );
 
-      installExtra.on("close", (code) => {
-        if (code !== 0) {
-          reject(new Error("Error installing extra packages"));
-        } else {
-          console.clear();
+        installExtra.on("close", (code) => {
+          if (code !== 0) {
+            reject(new Error("Error installing extra packages"));
+          } else {
+            console.clear();
 
-          console.log("  🚀 Project created successfully!\n");
+            console.log("  🚀 Project created successfully!\n");
 
-          console.log("  📂 To get started, run the following commands:\n");
+            console.log("  📂 To get started, run the following commands:\n");
 
-          console.log(`    \x1b[1mcd ${name}`);
+            console.log(`    \x1b[1mcd ${name}`);
 
-          console.log("    run dev\n\x1b[0m");
+            console.log("    run dev\n\x1b[0m");
 
-          console.log(
-            "  📖 For more information, visit https://github.com/cronos-js\n"
-          );
+            console.log(
+              "  📖 For more information, visit https://github.com/cronos-js\n"
+            );
 
-          resolve();
-        }
+            resolve();
+          }
+        });
       });
-    });
+    }
   } catch (error) {
     console.error("  😨 An error occurred while installing packages.\n", error);
     process.exit(1);
