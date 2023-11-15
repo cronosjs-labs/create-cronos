@@ -10197,7 +10197,7 @@ var main = async () => {
             console.log("  \u{1F680} Project created successfully!\n");
             console.log("  \u{1F4C2} To get started, run the following commands:\n");
             console.log(`    \x1B[1mcd ${name}`);
-            console.log("    run dev\n\x1B[0m");
+            console.log("    npm run dev\n\x1B[0m");
             console.log(
               "  \u{1F4D6} For more information, visit https://github.com/cronos-js\n"
             );
