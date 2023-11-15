@@ -10169,9 +10169,10 @@ var main = async () => {
   }
   console.clear();
   try {
+    process.chdir(route);
     console.log("  \u{1F9E9} Installing dependencies...");
     await new Promise((resolve, reject) => {
-      const install = (0, import_child_process2.spawn)(npmCommand, ["--prefix", route, "install"], {
+      const install = (0, import_child_process2.spawn)(npmCommand, ["install"], {
         stdio: "inherit"
       });
       install.on("close", (code) => {
@@ -10185,13 +10186,9 @@ var main = async () => {
     if (extraPackages?.length !== 0) {
       console.log("  \u{1F9E9} Installing extra packages...");
       await new Promise((resolve, reject) => {
-        const installExtra = (0, import_child_process2.spawn)(
-          npmCommand,
-          ["--prefix", route, "install", ...extraPackages],
-          {
-            stdio: "inherit"
-          }
-        );
+        const installExtra = (0, import_child_process2.spawn)(npmCommand, ["install", ...extraPackages], {
+          stdio: "inherit"
+        });
         installExtra.on("close", (code) => {
           if (code !== 0) {
             reject(new Error("Error installing extra packages"));

@@ -80,10 +80,12 @@ const main = async () => {
   //! INSTALL DEPENDENCIES
   console.clear();
   try {
+    process.chdir(route);
+
     console.log("  🧩 Installing dependencies...");
 
     await new Promise<void>((resolve, reject) => {
-      const install = spawn(npmCommand, ["--prefix", route, "install"], {
+      const install = spawn(npmCommand, ["install"], {
         stdio: "inherit",
       });
 
@@ -100,13 +102,9 @@ const main = async () => {
       console.log("  🧩 Installing extra packages...");
 
       await new Promise<void>((resolve, reject) => {
-        const installExtra = spawn(
-          npmCommand,
-          ["--prefix", route, "install", ...extraPackages!],
-          {
-            stdio: "inherit",
-          }
-        );
+        const installExtra = spawn(npmCommand, ["install", ...extraPackages!], {
+          stdio: "inherit",
+        });
 
         installExtra.on("close", (code) => {
           if (code !== 0) {
