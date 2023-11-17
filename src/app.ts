@@ -1,17 +1,27 @@
 #!/usr/bin/env node
 
+//! esm
 import git from "simple-git";
 import readline from "readline";
 import checkbox, { Separator } from "@inquirer/checkbox";
 import select from "@inquirer/select";
 import { spawn } from "child_process";
+import fs from "fs";
 
+//! commonjs
+const path = require("path");
+
+//! PACKAGES
 import reactChoices from "./packages/react-choices.js";
 import expressChoices from "./packages/express-choices.js";
 
+//! VARIABLES
+const currentDir = __dirname;
 const os = process.platform;
-
 const npmCommand = os === "win32" ? "npm.cmd" : "npm";
+
+//! ARGS
+const args = process.argv.slice(2);
 
 //! PRINT LETTERS
 console.clear();
@@ -27,8 +37,44 @@ console.log(
 
 console.log("\x1b[33m────────────────────────────\x1b[37m");
 
-//! TECH SELECT
+//* ----------------------------------------------------------------------------------------
+
+/**
+ * Copies a directory from a source to a destination.
+ *
+ * @param {string} srcDir - The source directory to copy from.
+ * @param {string} destDir - The destination directory to copy to.
+ */
+
+const copyDir = (srcDir: string, destDir: string) => {
+  fs.mkdirSync(destDir, { recursive: true });
+  for (const file of fs.readdirSync(srcDir)) {
+    const srcFile = path.resolve(srcDir, file);
+    const destFile = path.resolve(destDir, file);
+    copy(srcFile, destFile);
+  }
+};
+
+/**
+ * Copies a file or a directory from a source to a destination.
+ * If the source is a directory, it uses the copyDir function to copy it.
+ *
+ * @param {string} src - The source file or directory to copy from.
+ * @param {string} dest - The destination file or directory to copy to.
+ */
+
+const copy = (src: string, dest: string) => {
+  const stat = fs.statSync(src);
+  if (stat.isDirectory()) {
+    copyDir(src, dest);
+  } else {
+    fs.copyFileSync(src, dest);
+  }
+};
+
+//! MAIN
 const main = async () => {
+  //! TECH SELECT
   const tech = await select({
     message: "💻 Select a technology:",
     choices: [
@@ -38,7 +84,7 @@ const main = async () => {
       },
       {
         name: "Express (TypeScript)",
-        value: "express",
+        value: "express+typescript",
       },
     ],
   });
@@ -56,6 +102,11 @@ const main = async () => {
 
   const route = name === "." ? "." : `./${name}`;
 
+  if (name !== ".") {
+    fs.mkdirSync(route);
+    process.chdir(route);
+  }
+
   //! EXTRA PACKAGES
   const extraPackages: string[] | null =
     tech == "react"
@@ -72,16 +123,38 @@ const main = async () => {
 
   //! CLONE REPO
   try {
-    await git().clone(`https://github.com/cronos-js/cronos.${tech}`, route);
+    if (args.includes("--experimental-no-git")) {
+      console.log("🚫 Using local templates");
+
+      const templateDir = path.join(currentDir, `../templates/${tech}`);
+
+      const targetDir = process.cwd();
+
+      const write = (file: string, content?: string) => {
+        const targetPath = path.join(targetDir, file);
+        if (content) {
+          fs.writeFileSync(targetPath, content);
+        } else {
+          copy(path.join(templateDir, file), targetPath);
+        }
+      };
+
+      const files = fs.readdirSync(templateDir);
+
+      for (const file of files) {
+        write(file);
+      }
+    } else {
+      await git().clone(`https://github.com/cronos-js/cronos.${tech}`, ".");
+    }
   } catch (error) {
+    console.log(error);
     console.log("  😨 An error occurred while creating the project.\n");
   }
 
   //! INSTALL DEPENDENCIES
   console.clear();
   try {
-    process.chdir(route);
-
     console.log("  🧩 Installing dependencies...");
 
     await new Promise<void>((resolve, reject) => {

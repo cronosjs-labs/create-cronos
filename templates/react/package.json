@@ -1,0 +1,22 @@
+{
+  "name": "cronos.react",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "cronos-watch --react",
+    "build": "cronos-build --react",
+    "preview": "cronos-preview --react"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@rspack/cli": "^0.3.6",
+    "@rspack/plugin-react-refresh": "^0.3.6",
+    "@types/react": "^18.2.28",
+    "@types/react-dom": "^18.2.13",
+    "cronos-utils": "^0.1.7",
+    "react-refresh": "^0.14.0"
+  }
+}

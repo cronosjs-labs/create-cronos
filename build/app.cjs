@@ -173,7 +173,7 @@ var require_common = __commonJS({
         let enableOverride = null;
         let namespacesCache;
         let enabledCache;
-        function debug2(...args) {
+        function debug2(...args2) {
           if (!debug2.enabled) {
             return;
           }
@@ -184,28 +184,28 @@ var require_common = __commonJS({
           self.prev = prevTime;
           self.curr = curr;
           prevTime = curr;
-          args[0] = createDebug.coerce(args[0]);
-          if (typeof args[0] !== "string") {
-            args.unshift("%O");
+          args2[0] = createDebug.coerce(args2[0]);
+          if (typeof args2[0] !== "string") {
+            args2.unshift("%O");
           }
           let index = 0;
-          args[0] = args[0].replace(/%([a-zA-Z%])/g, (match, format) => {
+          args2[0] = args2[0].replace(/%([a-zA-Z%])/g, (match, format) => {
             if (match === "%%") {
               return "%";
             }
             index++;
             const formatter = createDebug.formatters[format];
             if (typeof formatter === "function") {
-              const val = args[index];
+              const val = args2[index];
               match = formatter.call(self, val);
-              args.splice(index, 1);
+              args2.splice(index, 1);
               index--;
             }
             return match;
           });
-          createDebug.formatArgs.call(self, args);
+          createDebug.formatArgs.call(self, args2);
           const logFn = self.log || createDebug.log;
-          logFn.apply(self, args);
+          logFn.apply(self, args2);
         }
         debug2.namespace = namespace;
         debug2.useColors = createDebug.useColors();
@@ -412,16 +412,16 @@ var require_browser = __commonJS({
       typeof navigator !== "undefined" && navigator.userAgent && navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31 || // Double check webkit in userAgent just in case we are in a worker
       typeof navigator !== "undefined" && navigator.userAgent && navigator.userAgent.toLowerCase().match(/applewebkit\/(\d+)/);
     }
-    function formatArgs(args) {
-      args[0] = (this.useColors ? "%c" : "") + this.namespace + (this.useColors ? " %c" : " ") + args[0] + (this.useColors ? "%c " : " ") + "+" + module2.exports.humanize(this.diff);
+    function formatArgs(args2) {
+      args2[0] = (this.useColors ? "%c" : "") + this.namespace + (this.useColors ? " %c" : " ") + args2[0] + (this.useColors ? "%c " : " ") + "+" + module2.exports.humanize(this.diff);
       if (!this.useColors) {
         return;
       }
       const c = "color: " + this.color;
-      args.splice(1, 0, c, "color: inherit");
+      args2.splice(1, 0, c, "color: inherit");
       let index = 0;
       let lastC = 0;
-      args[0].replace(/%[a-zA-Z%]/g, (match) => {
+      args2[0].replace(/%[a-zA-Z%]/g, (match) => {
         if (match === "%%") {
           return;
         }
@@ -430,7 +430,7 @@ var require_browser = __commonJS({
           lastC = index;
         }
       });
-      args.splice(lastC, 0, c);
+      args2.splice(lastC, 0, c);
     }
     exports.log = console.debug || console.log || (() => {
     });
@@ -711,16 +711,16 @@ var require_node = __commonJS({
     function useColors() {
       return "colors" in exports.inspectOpts ? Boolean(exports.inspectOpts.colors) : tty.isatty(process.stderr.fd);
     }
-    function formatArgs(args) {
+    function formatArgs(args2) {
       const { namespace: name, useColors: useColors2 } = this;
       if (useColors2) {
         const c = this.color;
         const colorCode = "\x1B[3" + (c < 8 ? c : "8;5;" + c);
         const prefix = `  ${colorCode};1m${name} \x1B[0m`;
-        args[0] = prefix + args[0].split("\n").join("\n" + prefix);
-        args.push(colorCode + "m+" + module2.exports.humanize(this.diff) + "\x1B[0m");
+        args2[0] = prefix + args2[0].split("\n").join("\n" + prefix);
+        args2.push(colorCode + "m+" + module2.exports.humanize(this.diff) + "\x1B[0m");
       } else {
-        args[0] = getDate() + name + " " + args[0];
+        args2[0] = getDate() + name + " " + args2[0];
       }
     }
     function getDate() {
@@ -729,8 +729,8 @@ var require_node = __commonJS({
       }
       return (/* @__PURE__ */ new Date()).toISOString() + " ";
     }
-    function log(...args) {
-      return process.stderr.write(util.format(...args) + "\n");
+    function log(...args2) {
+      return process.stderr.write(util.format(...args2) + "\n");
     }
     function save(namespaces) {
       if (namespaces) {
@@ -784,10 +784,10 @@ var require_src2 = __commonJS({
     var fs_1 = require("fs");
     var debug_1 = __importDefault(require_src());
     var log = debug_1.default("@kwsites/file-exists");
-    function check2(path, isFile, isDirectory) {
-      log(`checking %s`, path);
+    function check2(path2, isFile, isDirectory) {
+      log(`checking %s`, path2);
       try {
-        const stat = fs_1.statSync(path);
+        const stat = fs_1.statSync(path2);
         if (stat.isFile() && isFile) {
           log(`[OK] path represents a file`);
           return true;
@@ -807,8 +807,8 @@ var require_src2 = __commonJS({
         throw e;
       }
     }
-    function exists2(path, type = exports.READABLE) {
-      return check2(path, (type & exports.FILE) > 0, (type & exports.FOLDER) > 0);
+    function exists2(path2, type = exports.READABLE) {
+      return check2(path2, (type & exports.FILE) > 0, (type & exports.FOLDER) > 0);
     }
     exports.exists = exists2;
     exports.FILE = 1;
@@ -979,7 +979,7 @@ var require_common2 = __commonJS({
         let enableOverride = null;
         let namespacesCache;
         let enabledCache;
-        function debug2(...args) {
+        function debug2(...args2) {
           if (!debug2.enabled) {
             return;
           }
@@ -990,28 +990,28 @@ var require_common2 = __commonJS({
           self.prev = prevTime;
           self.curr = curr;
           prevTime = curr;
-          args[0] = createDebug.coerce(args[0]);
-          if (typeof args[0] !== "string") {
-            args.unshift("%O");
+          args2[0] = createDebug.coerce(args2[0]);
+          if (typeof args2[0] !== "string") {
+            args2.unshift("%O");
           }
           let index = 0;
-          args[0] = args[0].replace(/%([a-zA-Z%])/g, (match, format) => {
+          args2[0] = args2[0].replace(/%([a-zA-Z%])/g, (match, format) => {
             if (match === "%%") {
               return "%";
             }
             index++;
             const formatter = createDebug.formatters[format];
             if (typeof formatter === "function") {
-              const val = args[index];
+              const val = args2[index];
               match = formatter.call(self, val);
-              args.splice(index, 1);
+              args2.splice(index, 1);
               index--;
             }
             return match;
           });
-          createDebug.formatArgs.call(self, args);
+          createDebug.formatArgs.call(self, args2);
           const logFn = self.log || createDebug.log;
-          logFn.apply(self, args);
+          logFn.apply(self, args2);
         }
         debug2.namespace = namespace;
         debug2.useColors = createDebug.useColors();
@@ -1218,16 +1218,16 @@ var require_browser2 = __commonJS({
       typeof navigator !== "undefined" && navigator.userAgent && navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31 || // Double check webkit in userAgent just in case we are in a worker
       typeof navigator !== "undefined" && navigator.userAgent && navigator.userAgent.toLowerCase().match(/applewebkit\/(\d+)/);
     }
-    function formatArgs(args) {
-      args[0] = (this.useColors ? "%c" : "") + this.namespace + (this.useColors ? " %c" : " ") + args[0] + (this.useColors ? "%c " : " ") + "+" + module2.exports.humanize(this.diff);
+    function formatArgs(args2) {
+      args2[0] = (this.useColors ? "%c" : "") + this.namespace + (this.useColors ? " %c" : " ") + args2[0] + (this.useColors ? "%c " : " ") + "+" + module2.exports.humanize(this.diff);
       if (!this.useColors) {
         return;
       }
       const c = "color: " + this.color;
-      args.splice(1, 0, c, "color: inherit");
+      args2.splice(1, 0, c, "color: inherit");
       let index = 0;
       let lastC = 0;
-      args[0].replace(/%[a-zA-Z%]/g, (match) => {
+      args2[0].replace(/%[a-zA-Z%]/g, (match) => {
         if (match === "%%") {
           return;
         }
@@ -1236,7 +1236,7 @@ var require_browser2 = __commonJS({
           lastC = index;
         }
       });
-      args.splice(lastC, 0, c);
+      args2.splice(lastC, 0, c);
     }
     exports.log = console.debug || console.log || (() => {
     });
@@ -1402,16 +1402,16 @@ var require_node2 = __commonJS({
     function useColors() {
       return "colors" in exports.inspectOpts ? Boolean(exports.inspectOpts.colors) : tty.isatty(process.stderr.fd);
     }
-    function formatArgs(args) {
+    function formatArgs(args2) {
       const { namespace: name, useColors: useColors2 } = this;
       if (useColors2) {
         const c = this.color;
         const colorCode = "\x1B[3" + (c < 8 ? c : "8;5;" + c);
         const prefix = `  ${colorCode};1m${name} \x1B[0m`;
-        args[0] = prefix + args[0].split("\n").join("\n" + prefix);
-        args.push(colorCode + "m+" + module2.exports.humanize(this.diff) + "\x1B[0m");
+        args2[0] = prefix + args2[0].split("\n").join("\n" + prefix);
+        args2.push(colorCode + "m+" + module2.exports.humanize(this.diff) + "\x1B[0m");
       } else {
-        args[0] = getDate() + name + " " + args[0];
+        args2[0] = getDate() + name + " " + args2[0];
       }
     }
     function getDate() {
@@ -1420,8 +1420,8 @@ var require_node2 = __commonJS({
       }
       return (/* @__PURE__ */ new Date()).toISOString() + " ";
     }
-    function log(...args) {
-      return process.stderr.write(util.format(...args) + "\n");
+    function log(...args2) {
+      return process.stderr.write(util.format(...args2) + "\n");
     }
     function save(namespaces) {
       if (namespaces) {
@@ -2082,9 +2082,9 @@ var require_conversions = __commonJS({
       const b = c * Math.sin(hr);
       return [l, a, b];
     };
-    convert.rgb.ansi16 = function(args, saturation = null) {
-      const [r, g, b] = args;
-      let value = saturation === null ? convert.rgb.hsv(args)[2] : saturation;
+    convert.rgb.ansi16 = function(args2, saturation = null) {
+      const [r, g, b] = args2;
+      let value = saturation === null ? convert.rgb.hsv(args2)[2] : saturation;
       value = Math.round(value / 50);
       if (value === 0) {
         return 30;
@@ -2095,13 +2095,13 @@ var require_conversions = __commonJS({
       }
       return ansi;
     };
-    convert.hsv.ansi16 = function(args) {
-      return convert.rgb.ansi16(convert.hsv.rgb(args), args[2]);
+    convert.hsv.ansi16 = function(args2) {
+      return convert.rgb.ansi16(convert.hsv.rgb(args2), args2[2]);
     };
-    convert.rgb.ansi256 = function(args) {
-      const r = args[0];
-      const g = args[1];
-      const b = args[2];
+    convert.rgb.ansi256 = function(args2) {
+      const r = args2[0];
+      const g = args2[1];
+      const b = args2[2];
       if (r === g && g === b) {
         if (r < 8) {
           return 16;
@@ -2114,40 +2114,40 @@ var require_conversions = __commonJS({
       const ansi = 16 + 36 * Math.round(r / 255 * 5) + 6 * Math.round(g / 255 * 5) + Math.round(b / 255 * 5);
       return ansi;
     };
-    convert.ansi16.rgb = function(args) {
-      let color = args % 10;
+    convert.ansi16.rgb = function(args2) {
+      let color = args2 % 10;
       if (color === 0 || color === 7) {
-        if (args > 50) {
+        if (args2 > 50) {
           color += 3.5;
         }
         color = color / 10.5 * 255;
         return [color, color, color];
       }
-      const mult = (~~(args > 50) + 1) * 0.5;
+      const mult = (~~(args2 > 50) + 1) * 0.5;
       const r = (color & 1) * mult * 255;
       const g = (color >> 1 & 1) * mult * 255;
       const b = (color >> 2 & 1) * mult * 255;
       return [r, g, b];
     };
-    convert.ansi256.rgb = function(args) {
-      if (args >= 232) {
-        const c = (args - 232) * 10 + 8;
+    convert.ansi256.rgb = function(args2) {
+      if (args2 >= 232) {
+        const c = (args2 - 232) * 10 + 8;
         return [c, c, c];
       }
-      args -= 16;
+      args2 -= 16;
       let rem;
-      const r = Math.floor(args / 36) / 5 * 255;
-      const g = Math.floor((rem = args % 36) / 6) / 5 * 255;
+      const r = Math.floor(args2 / 36) / 5 * 255;
+      const g = Math.floor((rem = args2 % 36) / 6) / 5 * 255;
       const b = rem % 6 / 5 * 255;
       return [r, g, b];
     };
-    convert.rgb.hex = function(args) {
-      const integer = ((Math.round(args[0]) & 255) << 16) + ((Math.round(args[1]) & 255) << 8) + (Math.round(args[2]) & 255);
+    convert.rgb.hex = function(args2) {
+      const integer = ((Math.round(args2[0]) & 255) << 16) + ((Math.round(args2[1]) & 255) << 8) + (Math.round(args2[2]) & 255);
       const string = integer.toString(16).toUpperCase();
       return "000000".substring(string.length) + string;
     };
-    convert.hex.rgb = function(args) {
-      const match = args.toString(16).match(/[a-f0-9]{6}|[a-f0-9]{3}/i);
+    convert.hex.rgb = function(args2) {
+      const match = args2.toString(16).match(/[a-f0-9]{6}|[a-f0-9]{3}/i);
       if (!match) {
         return [0, 0, 0];
       }
@@ -2305,11 +2305,11 @@ var require_conversions = __commonJS({
     convert.rgb.apple = function(rgb) {
       return [rgb[0] / 255 * 65535, rgb[1] / 255 * 65535, rgb[2] / 255 * 65535];
     };
-    convert.gray.rgb = function(args) {
-      return [args[0] / 100 * 255, args[0] / 100 * 255, args[0] / 100 * 255];
+    convert.gray.rgb = function(args2) {
+      return [args2[0] / 100 * 255, args2[0] / 100 * 255, args2[0] / 100 * 255];
     };
-    convert.gray.hsl = function(args) {
-      return [0, 0, args[0]];
+    convert.gray.hsl = function(args2) {
+      return [0, 0, args2[0]];
     };
     convert.gray.hsv = convert.gray.hsl;
     convert.gray.hwb = function(gray) {
@@ -2371,20 +2371,20 @@ var require_route = __commonJS({
       return graph;
     }
     function link(from, to) {
-      return function(args) {
-        return to(from(args));
+      return function(args2) {
+        return to(from(args2));
       };
     }
     function wrapConversion(toModel, graph) {
-      const path = [graph[toModel].parent, toModel];
+      const path2 = [graph[toModel].parent, toModel];
       let fn = conversions[graph[toModel].parent][toModel];
       let cur = graph[toModel].parent;
       while (graph[cur].parent) {
-        path.unshift(graph[cur].parent);
+        path2.unshift(graph[cur].parent);
         fn = link(conversions[graph[cur].parent][cur], fn);
         cur = graph[cur].parent;
       }
-      fn.conversion = path;
+      fn.conversion = path2;
       return fn;
     }
     module2.exports = function(fromModel) {
@@ -2412,15 +2412,15 @@ var require_color_convert = __commonJS({
     var convert = {};
     var models = Object.keys(conversions);
     function wrapRaw(fn) {
-      const wrappedFn = function(...args) {
-        const arg0 = args[0];
+      const wrappedFn = function(...args2) {
+        const arg0 = args2[0];
         if (arg0 === void 0 || arg0 === null) {
           return arg0;
         }
         if (arg0.length > 1) {
-          args = arg0;
+          args2 = arg0;
         }
-        return fn(args);
+        return fn(args2);
       };
       if ("conversion" in fn) {
         wrappedFn.conversion = fn.conversion;
@@ -2428,15 +2428,15 @@ var require_color_convert = __commonJS({
       return wrappedFn;
     }
     function wrapRounded(fn) {
-      const wrappedFn = function(...args) {
-        const arg0 = args[0];
+      const wrappedFn = function(...args2) {
+        const arg0 = args2[0];
         if (arg0 === void 0 || arg0 === null) {
           return arg0;
         }
         if (arg0.length > 1) {
-          args = arg0;
+          args2 = arg0;
         }
-        const result = fn(args);
+        const result = fn(args2);
         if (typeof result === "object") {
           for (let len = result.length, i = 0; i < len; i++) {
             result[i] = Math.round(result[i]);
@@ -2469,16 +2469,16 @@ var require_color_convert = __commonJS({
 var require_ansi_styles = __commonJS({
   "node_modules/ansi-styles/index.js"(exports, module2) {
     "use strict";
-    var wrapAnsi16 = (fn, offset) => (...args) => {
-      const code = fn(...args);
+    var wrapAnsi16 = (fn, offset) => (...args2) => {
+      const code = fn(...args2);
       return `\x1B[${code + offset}m`;
     };
-    var wrapAnsi256 = (fn, offset) => (...args) => {
-      const code = fn(...args);
+    var wrapAnsi256 = (fn, offset) => (...args2) => {
+      const code = fn(...args2);
       return `\x1B[${38 + offset};5;${code}m`;
     };
-    var wrapAnsi16m = (fn, offset) => (...args) => {
-      const rgb = fn(...args);
+    var wrapAnsi16m = (fn, offset) => (...args2) => {
+      const rgb = fn(...args2);
       return `\x1B[${38 + offset};2;${rgb[0]};${rgb[1]};${rgb[2]}m`;
     };
     var ansi2ansi = (n) => n;
@@ -2700,8 +2700,8 @@ var require_templates = __commonJS({
       while ((matches = STYLE_REGEX.exec(style)) !== null) {
         const name = matches[1];
         if (matches[2]) {
-          const args = parseArguments(name, matches[2]);
-          results.push([name].concat(args));
+          const args2 = parseArguments(name, matches[2]);
+          results.push([name].concat(args2));
         } else {
           results.push([name]);
         }
@@ -4886,12 +4886,12 @@ var require_lib = __commonJS({
         }
         return def;
       }
-      #proxy(method, ...args) {
+      #proxy(method, ...args2) {
         if (typeof this._dest?.[method] === "function") {
-          this._dest[method](...args);
+          this._dest[method](...args2);
         }
         if (typeof this._src?.[method] === "function") {
-          this._src[method](...args);
+          this._src[method](...args2);
         }
       }
       get isTTY() {
@@ -4970,14 +4970,14 @@ var require_lib = __commonJS({
         }
         this.emit("end");
       }
-      destroy(...args) {
-        return this.#proxy("destroy", ...args);
+      destroy(...args2) {
+        return this.#proxy("destroy", ...args2);
       }
-      destroySoon(...args) {
-        return this.#proxy("destroySoon", ...args);
+      destroySoon(...args2) {
+        return this.#proxy("destroySoon", ...args2);
       }
-      close(...args) {
-        return this.#proxy("close", ...args);
+      close(...args2) {
+        return this.#proxy("close", ...args2);
       }
     };
     module2.exports = MuteStream2;
@@ -5347,8 +5347,8 @@ function pathspec(...paths) {
   cache.set(key, paths);
   return key;
 }
-function isPathSpec(path) {
-  return path instanceof String && cache.has(path);
+function isPathSpec(path2) {
+  return path2 instanceof String && cache.has(path2);
 }
 function toPaths(pathSpec) {
   return cache.get(pathSpec) || [];
@@ -5430,8 +5430,8 @@ function toLinesWithContent(input = "", trimmed2 = true, separator = "\n") {
 function forEachLineWithContent(input, callback) {
   return toLinesWithContent(input, true).map((line) => callback(line));
 }
-function folderExists(path) {
-  return (0, import_file_exists.exists)(path, import_file_exists.FOLDER);
+function folderExists(path2) {
+  return (0, import_file_exists.exists)(path2, import_file_exists.FOLDER);
 }
 function append(target, item) {
   if (Array.isArray(target)) {
@@ -5656,29 +5656,29 @@ function appendTaskOptions(options, commands = []) {
     return commands2;
   }, commands);
 }
-function getTrailingOptions(args, initialPrimitive = 0, objectOnly = false) {
+function getTrailingOptions(args2, initialPrimitive = 0, objectOnly = false) {
   const command = [];
-  for (let i = 0, max = initialPrimitive < 0 ? args.length : initialPrimitive; i < max; i++) {
-    if ("string|number".includes(typeof args[i])) {
-      command.push(String(args[i]));
+  for (let i = 0, max = initialPrimitive < 0 ? args2.length : initialPrimitive; i < max; i++) {
+    if ("string|number".includes(typeof args2[i])) {
+      command.push(String(args2[i]));
     }
   }
-  appendTaskOptions(trailingOptionsArgument(args), command);
+  appendTaskOptions(trailingOptionsArgument(args2), command);
   if (!objectOnly) {
-    command.push(...trailingArrayArgument(args));
+    command.push(...trailingArrayArgument(args2));
   }
   return command;
 }
-function trailingArrayArgument(args) {
-  const hasTrailingCallback = typeof last(args) === "function";
-  return filterType(last(args, hasTrailingCallback ? 1 : 0), filterArray, []);
+function trailingArrayArgument(args2) {
+  const hasTrailingCallback = typeof last(args2) === "function";
+  return filterType(last(args2, hasTrailingCallback ? 1 : 0), filterArray, []);
 }
-function trailingOptionsArgument(args) {
-  const hasTrailingCallback = filterFunction(last(args));
-  return filterType(last(args, hasTrailingCallback ? 1 : 0), filterPlainObject);
+function trailingOptionsArgument(args2) {
+  const hasTrailingCallback = filterFunction(last(args2));
+  return filterType(last(args2, hasTrailingCallback ? 1 : 0), filterPlainObject);
 }
-function trailingFunctionArgument(args, includeNoop = true) {
-  const callback = asFunction(last(args));
+function trailingFunctionArgument(args2, includeNoop = true) {
+  const callback = asFunction(last(args2));
   return includeNoop || isUserFunction(callback) ? callback : void 0;
 }
 var init_task_options = __esm({
@@ -5794,8 +5794,8 @@ function checkIsRepoRootTask() {
     commands,
     format: "utf-8",
     onError,
-    parser(path) {
-      return /^\.(git)?$/.test(path.trim());
+    parser(path2) {
+      return /^\.(git)?$/.test(path2.trim());
     }
   };
 }
@@ -6186,11 +6186,11 @@ function parseGrep(grep) {
   const paths = /* @__PURE__ */ new Set();
   const results = {};
   forEachLineWithContent(grep, (input) => {
-    const [path, line, preview] = input.split(NULL);
-    paths.add(path);
-    (results[path] = results[path] || []).push({
+    const [path2, line, preview] = input.split(NULL);
+    paths.add(path2);
+    (results[path2] = results[path2] || []).push({
       line: asNumber(line),
-      path,
+      path: path2,
       preview
     });
   });
@@ -6302,15 +6302,15 @@ function createLog() {
 }
 function prefixedLogger(to, prefix, forward) {
   if (!prefix || !String(prefix).replace(/\s*/, "")) {
-    return !forward ? to : (message, ...args) => {
-      to(message, ...args);
-      forward(message, ...args);
+    return !forward ? to : (message, ...args2) => {
+      to(message, ...args2);
+      forward(message, ...args2);
     };
   }
-  return (message, ...args) => {
-    to(`%s ${message}`, prefix, ...args);
+  return (message, ...args2) => {
+    to(`%s ${message}`, prefix, ...args2);
     if (forward) {
-      forward(message, ...args);
+      forward(message, ...args2);
     }
   };
 }
@@ -6501,9 +6501,9 @@ var init_git_executor_chain = __esm({
       }
       attemptRemoteTask(task, logger) {
         return __async(this, null, function* () {
-          const args = this._plugins.exec("spawn.args", [...task.commands], pluginContext(task, task.commands));
-          const raw = yield this.gitResponse(task, this.binary, args, this.outputHandler, logger.step("SPAWN"));
-          const outputStreams = yield this.handleTaskData(task, args, raw, logger.step("HANDLE"));
+          const args2 = this._plugins.exec("spawn.args", [...task.commands], pluginContext(task, task.commands));
+          const raw = yield this.gitResponse(task, this.binary, args2, this.outputHandler, logger.step("SPAWN"));
+          const outputStreams = yield this.handleTaskData(task, args2, raw, logger.step("HANDLE"));
           logger(`passing response to task's parser as a %s`, task.format);
           if (isBufferTask(task)) {
             return callTaskParser(task.parser, outputStreams);
@@ -6517,11 +6517,11 @@ var init_git_executor_chain = __esm({
           return task.parser(this);
         });
       }
-      handleTaskData(task, args, result, logger) {
+      handleTaskData(task, args2, result, logger) {
         const { exitCode, rejection, stdOut, stdErr } = result;
         return new Promise((done, fail) => {
           logger(`Preparing to handle process response exitCode=%d stdOut=`, exitCode);
-          const { error } = this._plugins.exec("task.error", { error: rejection }, __spreadValues(__spreadValues({}, pluginContext(task, args)), result));
+          const { error } = this._plugins.exec("task.error", { error: rejection }, __spreadValues(__spreadValues({}, pluginContext(task, args2)), result));
           if (error && task.onError) {
             logger.info(`exitCode=%s handling with custom error handler`);
             return task.onError(result, error, (newStdOut) => {
@@ -6538,7 +6538,7 @@ var init_git_executor_chain = __esm({
           done(new GitOutputStreams(Buffer.concat(stdOut), Buffer.concat(stdErr)));
         });
       }
-      gitResponse(task, command, args, outputHandler, logger) {
+      gitResponse(task, command, args2, outputHandler, logger) {
         return __async(this, null, function* () {
           const outputLogger = logger.sibling("output");
           const spawnOptions = this._plugins.exec("spawn.options", {
@@ -6549,9 +6549,9 @@ var init_git_executor_chain = __esm({
           return new Promise((done) => {
             const stdOut = [];
             const stdErr = [];
-            logger.info(`%s %o`, command, args);
+            logger.info(`%s %o`, command, args2);
             logger("%O", spawnOptions);
-            let rejection = this._beforeSpawn(task, args);
+            let rejection = this._beforeSpawn(task, args2);
             if (rejection) {
               return done({
                 stdOut,
@@ -6560,20 +6560,20 @@ var init_git_executor_chain = __esm({
                 rejection
               });
             }
-            this._plugins.exec("spawn.before", void 0, __spreadProps(__spreadValues({}, pluginContext(task, args)), {
+            this._plugins.exec("spawn.before", void 0, __spreadProps(__spreadValues({}, pluginContext(task, args2)), {
               kill(reason) {
                 rejection = reason || rejection;
               }
             }));
-            const spawned = (0, import_child_process.spawn)(command, args, spawnOptions);
+            const spawned = (0, import_child_process.spawn)(command, args2, spawnOptions);
             spawned.stdout.on("data", onDataReceived(stdOut, "stdOut", logger, outputLogger.step("stdOut")));
             spawned.stderr.on("data", onDataReceived(stdErr, "stdErr", logger, outputLogger.step("stdErr")));
             spawned.on("error", onErrorReceived(stdErr, logger));
             if (outputHandler) {
               logger(`Passing child process stdOut/stdErr to custom outputHandler`);
-              outputHandler(command, spawned.stdout, spawned.stderr, [...args]);
+              outputHandler(command, spawned.stdout, spawned.stderr, [...args2]);
             }
-            this._plugins.exec("spawn.after", void 0, __spreadProps(__spreadValues({}, pluginContext(task, args)), {
+            this._plugins.exec("spawn.after", void 0, __spreadProps(__spreadValues({}, pluginContext(task, args2)), {
               spawned,
               close(exitCode, reason) {
                 done({
@@ -6594,9 +6594,9 @@ var init_git_executor_chain = __esm({
           });
         });
       }
-      _beforeSpawn(task, args) {
+      _beforeSpawn(task, args2) {
         let rejection;
-        this._plugins.exec("spawn.before", void 0, __spreadProps(__spreadValues({}, pluginContext(task, args)), {
+        this._plugins.exec("spawn.before", void 0, __spreadProps(__spreadValues({}, pluginContext(task, args2)), {
           kill(reason) {
             rejection = reason || rejection;
           }
@@ -6683,8 +6683,8 @@ var init_change_working_directory = __esm({
     init_task();
   }
 });
-function checkoutTask(args) {
-  const commands = ["checkout", ...args];
+function checkoutTask(args2) {
+  const commands = ["checkout", ...args2];
   if (commands[1] === "-b" && commands.includes("-B")) {
     commands[1] = remove(commands, "-B");
   }
@@ -6807,14 +6807,14 @@ var init_hash_object = __esm({
     init_task();
   }
 });
-function parseInit(bare, path, text) {
+function parseInit(bare, path2, text) {
   const response = String(text).trim();
   let result;
   if (result = initResponseRegex.exec(response)) {
-    return new InitSummary(bare, path, false, result[1]);
+    return new InitSummary(bare, path2, false, result[1]);
   }
   if (result = reInitResponseRegex.exec(response)) {
-    return new InitSummary(bare, path, true, result[1]);
+    return new InitSummary(bare, path2, true, result[1]);
   }
   let gitDir = "";
   const tokens = response.split(" ");
@@ -6825,7 +6825,7 @@ function parseInit(bare, path, text) {
       break;
     }
   }
-  return new InitSummary(bare, path, /^re/i.test(response), gitDir);
+  return new InitSummary(bare, path2, /^re/i.test(response), gitDir);
 }
 var InitSummary;
 var initResponseRegex;
@@ -6833,9 +6833,9 @@ var reInitResponseRegex;
 var init_InitSummary = __esm({
   "src/lib/responses/InitSummary.ts"() {
     InitSummary = class {
-      constructor(bare, path, existing, gitDir) {
+      constructor(bare, path2, existing, gitDir) {
         this.bare = bare;
-        this.path = path;
+        this.path = path2;
         this.existing = existing;
         this.gitDir = gitDir;
       }
@@ -6847,7 +6847,7 @@ var init_InitSummary = __esm({
 function hasBareCommand(command) {
   return command.includes(bareCommand);
 }
-function initTask(bare = false, path, customArgs) {
+function initTask(bare = false, path2, customArgs) {
   const commands = ["init", ...customArgs];
   if (bare && !hasBareCommand(commands)) {
     commands.splice(1, 0, bareCommand);
@@ -6856,7 +6856,7 @@ function initTask(bare = false, path, customArgs) {
     commands,
     format: "utf-8",
     parser(text) {
-      return parseInit(commands.includes("--bare"), path, text);
+      return parseInit(commands.includes("--bare"), path2, text);
     }
   };
 }
@@ -7577,12 +7577,12 @@ var init_FileStatusSummary = __esm({
   "src/lib/responses/FileStatusSummary.ts"() {
     fromPathRegex = /^(.+) -> (.+)$/;
     FileStatusSummary = class {
-      constructor(path, index, working_dir) {
-        this.path = path;
+      constructor(path2, index, working_dir) {
+        this.path = path2;
         this.index = index;
         this.working_dir = working_dir;
         if (index + working_dir === "R") {
-          const detail = fromPathRegex.exec(path) || [null, path, path];
+          const detail = fromPathRegex.exec(path2) || [null, path2, path2];
           this.from = detail[1] || "";
           this.path = detail[2] || "";
         }
@@ -7613,14 +7613,14 @@ function splitLine(result, lineStr) {
     default:
       return;
   }
-  function data(index, workingDir, path) {
+  function data(index, workingDir, path2) {
     const raw = `${index}${workingDir}`;
     const handler = parsers6.get(raw);
     if (handler) {
-      handler(result, path);
+      handler(result, path2);
     }
     if (raw !== "##" && raw !== "!!") {
-      result.files.push(new FileStatusSummary(path.replace(/\0.+$/, ""), index, workingDir));
+      result.files.push(new FileStatusSummary(path2.replace(/\0.+$/, ""), index, workingDir));
     }
   }
 }
@@ -7865,8 +7865,8 @@ var init_simple_git_api = __esm({
         }
         return this._runTask(configurationErrorTask("Git.cwd: workingDirectory must be supplied as a string"), next);
       }
-      hashObject(path, write) {
-        return this._runTask(hashObjectTask(path, write === true), trailingFunctionArgument(arguments));
+      hashObject(path2, write) {
+        return this._runTask(hashObjectTask(path2, write === true), trailingFunctionArgument(arguments));
       }
       init(bare) {
         return this._runTask(initTask(bare === true, this._executor.cwd, getTrailingOptions(arguments)), trailingFunctionArgument(arguments));
@@ -8443,8 +8443,8 @@ __export(sub_module_exports, {
   subModuleTask: () => subModuleTask,
   updateSubModuleTask: () => updateSubModuleTask
 });
-function addSubModuleTask(repo, path) {
-  return subModuleTask(["add", repo, path]);
+function addSubModuleTask(repo, path2) {
+  return subModuleTask(["add", repo, path2]);
 }
 function initSubModuleTask(customArgs) {
   return subModuleTask(["init", ...customArgs]);
@@ -8710,13 +8710,13 @@ var require_git = __commonJS2({
       }
       return this._runTask(straightThroughStringTask2(command, this._trimmed), next);
     };
-    Git2.prototype.submoduleAdd = function(repo, path, then) {
-      return this._runTask(addSubModuleTask2(repo, path), trailingFunctionArgument2(arguments));
+    Git2.prototype.submoduleAdd = function(repo, path2, then) {
+      return this._runTask(addSubModuleTask2(repo, path2), trailingFunctionArgument2(arguments));
     };
-    Git2.prototype.submoduleUpdate = function(args, then) {
+    Git2.prototype.submoduleUpdate = function(args2, then) {
       return this._runTask(updateSubModuleTask2(getTrailingOptions2(arguments, true)), trailingFunctionArgument2(arguments));
     };
-    Git2.prototype.submoduleInit = function(args, then) {
+    Git2.prototype.submoduleInit = function(args2, then) {
       return this._runTask(initSubModuleTask2(getTrailingOptions2(arguments, true)), trailingFunctionArgument2(arguments));
     };
     Git2.prototype.subModule = function(options, then) {
@@ -8763,10 +8763,10 @@ var require_git = __commonJS2({
     Git2.prototype.binaryCatFile = function() {
       return this._catFile("buffer", arguments);
     };
-    Git2.prototype._catFile = function(format, args) {
-      var handler = trailingFunctionArgument2(args);
+    Git2.prototype._catFile = function(format, args2) {
+      var handler = trailingFunctionArgument2(args2);
       var command = ["cat-file"];
-      var options = args[0];
+      var options = args2[0];
       if (typeof options === "string") {
         return this._runTask(configurationErrorTask2("Git.catFile: options must be supplied as an array of strings"), handler);
       }
@@ -8899,13 +8899,13 @@ function blockUnsafeOperationsPlugin({
 } = {}) {
   return {
     type: "spawn.args",
-    action(args, context) {
-      args.forEach((current, index) => {
-        const next = index < args.length ? args[index + 1] : "";
+    action(args2, context) {
+      args2.forEach((current, index) => {
+        const next = index < args2.length ? args2[index + 1] : "";
         allowUnsafeProtocolOverride || preventProtocolOverride(current, next);
         allowUnsafePack || preventUploadPack(current, context.method);
       });
-      return args;
+      return args2;
     }
   };
 }
@@ -9070,11 +9070,11 @@ function progressMonitorPlugin(progress) {
   };
   const onArgs = {
     type: "spawn.args",
-    action(args, context) {
+    action(args2, context) {
       if (!progressMethods.includes(context.method)) {
-        return args;
+        return args2;
       }
-      return including(args, progressCommand);
+      return including(args2, progressCommand);
     }
   };
   return [onArgs, onProgress];
@@ -9135,8 +9135,8 @@ function suffixPathsPlugin() {
     action(data) {
       const prefix = [];
       let suffix;
-      function append2(args) {
-        (suffix = suffix || []).push(...args);
+      function append2(args2) {
+        (suffix = suffix || []).push(...args2);
       }
       for (let i = 0; i < data.length; i++) {
         const param = data[i];
@@ -9235,14 +9235,14 @@ function readline() {
   return getStore().rl;
 }
 function withUpdates(fn) {
-  const wrapped = (...args) => {
+  const wrapped = (...args2) => {
     const store = getStore();
     let shouldUpdate = false;
     const oldHandleChange = store.handleChange;
     store.handleChange = () => {
       shouldUpdate = true;
     };
-    const returnValue = fn(...args);
+    const returnValue = fn(...args2);
     if (shouldUpdate) {
       oldHandleChange();
     }
@@ -9701,17 +9701,17 @@ var SignalExit = class extends SignalExitBase {
     this.#emitter.emit("exit", this.#process.exitCode, null);
     return this.#originalProcessReallyExit.call(this.#process, this.#process.exitCode);
   }
-  #processEmit(ev, ...args) {
+  #processEmit(ev, ...args2) {
     const og = this.#originalProcessEmit;
     if (ev === "exit" && processOk(this.#process)) {
-      if (typeof args[0] === "number") {
-        this.#process.exitCode = args[0];
+      if (typeof args2[0] === "number") {
+        this.#process.exitCode = args2[0];
       }
-      const ret = og.call(this.#process, ev, ...args);
+      const ret = og.call(this.#process, ev, ...args2);
       this.#emitter.emit("exit", this.#process.exitCode, null);
       return ret;
     } else {
-      return og.call(this.#process, ev, ...args);
+      return og.call(this.#process, ev, ...args2);
     }
   }
 };
@@ -10110,6 +10110,7 @@ ${page}${choiceDescription}${import_ansi_escapes3.default.cursorHide}`;
 
 // src/app.ts
 var import_child_process2 = require("child_process");
+var import_fs = __toESM(require("fs"), 1);
 
 // src/packages/react-choices.ts
 var choices = [{ name: "Zustand", value: "zustand" }];
@@ -10125,8 +10126,11 @@ var choices2 = [
 var express_choices_default = choices2;
 
 // src/app.ts
+var path = require("path");
+var currentDir = __dirname;
 var os = process.platform;
 var npmCommand = os === "win32" ? "npm.cmd" : "npm";
+var args = process.argv.slice(2);
 console.clear();
 console.log("\x1B[33m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\x1B[37m");
 console.log("           \x1B[33m\x1B[1m\x1B[37mCronos \u{1F525}  \x1B[0m\x1B[31m");
@@ -10134,6 +10138,22 @@ console.log(
   "\x1B[33m\x1B[1m\x1B[31mhttps://github.com/cronos-js\x1B[0m\x1B[31m"
 );
 console.log("\x1B[33m\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\x1B[37m");
+var copyDir = (srcDir, destDir) => {
+  import_fs.default.mkdirSync(destDir, { recursive: true });
+  for (const file of import_fs.default.readdirSync(srcDir)) {
+    const srcFile = path.resolve(srcDir, file);
+    const destFile = path.resolve(destDir, file);
+    copy(srcFile, destFile);
+  }
+};
+var copy = (src, dest) => {
+  const stat = import_fs.default.statSync(src);
+  if (stat.isDirectory()) {
+    copyDir(src, dest);
+  } else {
+    import_fs.default.copyFileSync(src, dest);
+  }
+};
 var main = async () => {
   const tech = await esm_default3({
     message: "\u{1F4BB} Select a technology:",
@@ -10144,7 +10164,7 @@ var main = async () => {
       },
       {
         name: "Express (TypeScript)",
-        value: "express"
+        value: "express+typescript"
       }
     ]
   });
@@ -10155,6 +10175,10 @@ var main = async () => {
   const prompt = (query) => new Promise((resolve) => rl.question(query, resolve));
   const name = await prompt("  \u{1F4A1} Project name: ");
   const route = name === "." ? "." : `./${name}`;
+  if (name !== ".") {
+    import_fs.default.mkdirSync(route);
+    process.chdir(route);
+  }
   const extraPackages = tech == "react" ? await esm_default2({
     message: "\u{1F4E6} Select extra packages:",
     choices: react_choices_default
@@ -10163,13 +10187,31 @@ var main = async () => {
     choices: express_choices_default
   }) : null;
   try {
-    await esm_default().clone(`https://github.com/cronos-js/cronos.${tech}`, route);
+    if (args.includes("--experimental-no-git")) {
+      console.log("\u{1F6AB} Using local templates");
+      const templateDir = path.join(currentDir, `../templates/${tech}`);
+      const targetDir = process.cwd();
+      const write = (file, content) => {
+        const targetPath = path.join(targetDir, file);
+        if (content) {
+          import_fs.default.writeFileSync(targetPath, content);
+        } else {
+          copy(path.join(templateDir, file), targetPath);
+        }
+      };
+      const files = import_fs.default.readdirSync(templateDir);
+      for (const file of files) {
+        write(file);
+      }
+    } else {
+      await esm_default().clone(`https://github.com/cronos-js/cronos.${tech}`, ".");
+    }
   } catch (error) {
+    console.log(error);
     console.log("  \u{1F628} An error occurred while creating the project.\n");
   }
   console.clear();
   try {
-    process.chdir(route);
     console.log("  \u{1F9E9} Installing dependencies...");
     await new Promise((resolve, reject) => {
       const install = (0, import_child_process2.spawn)(npmCommand, ["install"], {
@@ -10212,7 +10254,13 @@ var main = async () => {
   }
 };
 main();
+//! esm
+//! commonjs
+//! PACKAGES
+//! VARIABLES
+//! ARGS
 //! PRINT LETTERS
+//! MAIN
 //! TECH SELECT
 //! PROJECT NAME
 //! EXTRA PACKAGES
