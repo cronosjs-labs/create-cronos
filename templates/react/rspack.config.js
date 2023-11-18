@@ -19,7 +19,7 @@ const config = {
       },
     ],
   },
-  plugins: [new rspack.HtmlRspackPlugin({ template: "./index.html" })].filter(
+  plugins: [new rspack.HtmlRspackPlugin({ template: "./index.html", favicon: "./public/logo.png" })].filter(
     Boolean
   ),
 };
