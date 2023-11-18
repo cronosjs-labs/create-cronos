@@ -72,6 +72,29 @@ const copy = (src: string, dest: string) => {
   }
 };
 
+/**
+ * This function logs a success message to the console after a project has been created successfully.
+ * It provides the user with instructions on how to start using the project.
+ *
+ * @param name - The name of the project. It can be a string or any other type.
+ */
+
+const success = (name: string | unknown) => {
+  console.clear();
+
+  console.log("  🚀 Project created successfully!\n");
+
+  console.log("  📂 To get started, run the following commands:\n");
+
+  console.log(`    \x1b[1mcd ${name}`);
+
+  console.log("    npm run dev\n\x1b[0m");
+
+  console.log(
+    "  📖 For more information, visit https://github.com/cronos-js\n"
+  );
+};
+
 //! MAIN
 const main = async () => {
   //! TECH SELECT
@@ -84,7 +107,7 @@ const main = async () => {
       },
       {
         name: "Express (TypeScript)",
-        value: "express+typescript",
+        value: "express-typescript",
       },
     ],
   });
@@ -98,7 +121,7 @@ const main = async () => {
   const prompt = (query) =>
     new Promise((resolve) => rl.question(query, resolve));
 
-  const name = await prompt("  💡 Project name: ");
+  const name: string | unknown = await prompt("  💡 Project name: ");
 
   const route = name === "." ? "." : `./${name}`;
 
@@ -114,7 +137,7 @@ const main = async () => {
           message: "📦 Select extra packages:",
           choices: reactChoices,
         })
-      : tech == "express"
+      : tech == "express-typescript"
       ? await checkbox({
           message: "📦 Select extra packages:",
           choices: expressChoices,
@@ -154,6 +177,7 @@ const main = async () => {
 
   //! INSTALL DEPENDENCIES
   console.clear();
+
   try {
     console.log("  🧩 Installing dependencies...");
 
@@ -171,7 +195,9 @@ const main = async () => {
       });
     });
 
-    if (extraPackages?.length !== 0) {
+    if (!extraPackages) return success(name);
+
+    if (extraPackages.length > 0 || extraPackages !== null) {
       console.log("  🧩 Installing extra packages...");
 
       await new Promise<void>((resolve, reject) => {
@@ -183,20 +209,7 @@ const main = async () => {
           if (code !== 0) {
             reject(new Error("Error installing extra packages"));
           } else {
-            console.clear();
-
-            console.log("  🚀 Project created successfully!\n");
-
-            console.log("  📂 To get started, run the following commands:\n");
-
-            console.log(`    \x1b[1mcd ${name}`);
-
-            console.log("    npm run dev\n\x1b[0m");
-
-            console.log(
-              "  📖 For more information, visit https://github.com/cronos-js\n"
-            );
-
+            success(name);
             resolve();
           }
         });

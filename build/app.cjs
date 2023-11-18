@@ -10154,6 +10154,16 @@ var copy = (src, dest) => {
     import_fs.default.copyFileSync(src, dest);
   }
 };
+var success = (name) => {
+  console.clear();
+  console.log("  \u{1F680} Project created successfully!\n");
+  console.log("  \u{1F4C2} To get started, run the following commands:\n");
+  console.log(`    \x1B[1mcd ${name}`);
+  console.log("    npm run dev\n\x1B[0m");
+  console.log(
+    "  \u{1F4D6} For more information, visit https://github.com/cronos-js\n"
+  );
+};
 var main = async () => {
   const tech = await esm_default3({
     message: "\u{1F4BB} Select a technology:",
@@ -10164,7 +10174,7 @@ var main = async () => {
       },
       {
         name: "Express (TypeScript)",
-        value: "express+typescript"
+        value: "express-typescript"
       }
     ]
   });
@@ -10182,7 +10192,7 @@ var main = async () => {
   const extraPackages = tech == "react" ? await esm_default2({
     message: "\u{1F4E6} Select extra packages:",
     choices: react_choices_default
-  }) : tech == "express" ? await esm_default2({
+  }) : tech == "express-typescript" ? await esm_default2({
     message: "\u{1F4E6} Select extra packages:",
     choices: express_choices_default
   }) : null;
@@ -10225,7 +10235,9 @@ var main = async () => {
         }
       });
     });
-    if (extraPackages?.length !== 0) {
+    if (!extraPackages)
+      return success(name);
+    if (extraPackages.length > 0 || extraPackages !== null) {
       console.log("  \u{1F9E9} Installing extra packages...");
       await new Promise((resolve, reject) => {
         const installExtra = (0, import_child_process2.spawn)(npmCommand, ["install", ...extraPackages], {
@@ -10235,14 +10247,7 @@ var main = async () => {
           if (code !== 0) {
             reject(new Error("Error installing extra packages"));
           } else {
-            console.clear();
-            console.log("  \u{1F680} Project created successfully!\n");
-            console.log("  \u{1F4C2} To get started, run the following commands:\n");
-            console.log(`    \x1B[1mcd ${name}`);
-            console.log("    npm run dev\n\x1B[0m");
-            console.log(
-              "  \u{1F4D6} For more information, visit https://github.com/cronos-js\n"
-            );
+            success(name);
             resolve();
           }
         });
