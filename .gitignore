@@ -1,2 +1,12 @@
 node_modules/
 ignore/
+scripts/*.png
+
+templates/*/build
+templates/*/dist
+templates/*/node_modules
+templates/*/package-lock.json
+templates/*/*.env
+templates/*/*.local
+
+.turbo
