@@ -6,6 +6,7 @@
     "type": "git",
     "url": "git+https://github.com/cronos-js/cronos.js"
   },
+  "homepage": "cronosjs.dev/",
   "main": "app.js",
   "type": "module",
   "scripts": {
