@@ -1,0 +1,14 @@
+{
+  "jsc": {
+    "parser": {
+      "syntax": "ecmascript",
+      "decorators": true,
+      "dynamicImport": true
+    },
+    "target": "es2022"
+  },
+  "module": {
+    "type": "es6"
+  },
+  "sourceMaps": true
+}

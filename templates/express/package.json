@@ -3,12 +3,13 @@
   "version": "0.0.0",
   "main": "./build/index.js",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "build": "cronos-build --express",
     "dev": "cronos-watch --express",
     "preview": "cronos-preview --express",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix"
+    "lint": "eslint ./src --ext .js",
+    "lint:fix": "eslint ./src --ext .js --fix"
   },
   "dependencies": {
     "express": "4.18.2"

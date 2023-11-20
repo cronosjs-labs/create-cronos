@@ -22,13 +22,18 @@ const npmCommand = os === "win32" ? "npm.cmd" : "npm";
 
 //! ARGS
 const args = process.argv.slice(2);
+const canary = args.includes("--canary");
 
 //! PRINT LETTERS
 console.clear();
 
 console.log("\x1b[33m────────────────────────────\x1b[37m");
 
-console.log("           \x1b[33m\x1b[1m\x1b[37mCronos 🔥  \x1b[0m\x1b[31m");
+canary
+  ? console.log(
+      "      \x1b[33m\x1b[1m\x1b[37mCronos Canary 🟡  \x1b[0m\x1b[31m"
+    )
+  : console.log("           \x1b[33m\x1b[1m\x1b[37mCronos 🔥  \x1b[0m\x1b[31m");
 
 //log github
 console.log(
@@ -97,19 +102,39 @@ const success = (name: string | unknown) => {
 
 //! MAIN
 const main = async () => {
+  const techChoices = [
+    {
+      name: "React",
+      value: "react",
+    },
+    {
+      name: "Express (TypeScript)",
+      value: "express-typescript",
+    },
+  ];
+
+  if (canary) {
+    techChoices.push({
+      name: "React (TypeScript)",
+      value: "react-typescript",
+    });
+
+    techChoices.push({
+      name: "Express",
+      value: "express",
+    });
+
+    techChoices.sort((a, b) => {
+      if (a.name < b.name) return -1;
+      if (b.name > a.name) return 1;
+      return 0;
+    });
+  }
+
   //! TECH SELECT
   const tech = await select({
     message: "💻 Select a technology:",
-    choices: [
-      {
-        name: "React",
-        value: "react",
-      },
-      {
-        name: "Express (TypeScript)",
-        value: "express-typescript",
-      },
-    ],
+    choices: techChoices,
   });
 
   //! PROJECT NAME
@@ -137,18 +162,26 @@ const main = async () => {
           message: "📦 Select extra packages:",
           choices: reactChoices,
         })
+      : canary && tech == "express"
+      ? await checkbox({
+          message: "📦 Select extra packages:",
+          choices: expressChoices,
+        })
       : tech == "express-typescript"
       ? await checkbox({
           message: "📦 Select extra packages:",
           choices: expressChoices,
         })
+      : canary && tech == "react-typescript"
+      ? await checkbox({
+          message: "📦 Select extra packages:",
+          choices: reactChoices,
+        })
       : null;
 
   //! CLONE REPO
   try {
-    if (args.includes("--experimental-no-git")) {
-      console.log("🚫 Using local templates");
-
+    if (canary) {
       const templateDir = path.join(currentDir, `../templates/${tech}`);
 
       const targetDir = process.cwd();
@@ -195,25 +228,35 @@ const main = async () => {
       });
     });
 
+    // If there are no extra packages, end the function successfully
     if (!extraPackages) return success(name);
 
-    if (extraPackages.length > 0 || extraPackages !== null) {
+    // If there are extra packages, proceed to install them
+    if (extraPackages.length > 0) {
       console.log("  🧩 Installing extra packages...");
 
+      // Create a new promise to handle the installation process
       await new Promise<void>((resolve, reject) => {
+        // Start the installation process
         const installExtra = spawn(npmCommand, ["install", ...extraPackages!], {
           stdio: "inherit",
         });
 
+        // When the installation process closes, check if there was an error
         installExtra.on("close", (code) => {
+          // If the exit code is not 0, an error occurred
           if (code !== 0) {
             reject(new Error("Error installing extra packages"));
           } else {
+            // If the exit code is 0, the installation was successful
             success(name);
             resolve();
           }
         });
       });
+    } else {
+      // If there are no extra packages, end the function successfully
+      success(name);
     }
   } catch (error) {
     console.error("  😨 An error occurred while installing packages.\n", error);
