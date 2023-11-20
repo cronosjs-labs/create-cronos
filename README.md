@@ -39,7 +39,7 @@ And all the people that have contributed to this project.
 
 ### 📜 Changelog
 
-You can see the changelog [here](./docs/CHANGELOG/0.1.0.md)
+You can see the changelog [here](./CHANGELOG.md).
 
 ### 📝 License
 
