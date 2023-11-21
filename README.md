@@ -3,7 +3,7 @@
 
 # CRONOS
 
-## 🔥 Next generation fullstack tooling
+## 🔥 Next Generation Fullstack Tooling
 
 </div>
 
