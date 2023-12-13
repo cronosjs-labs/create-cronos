@@ -2,6 +2,14 @@
 
 Return to [README.md](../../README.md)
 
+## [0.1.10] - 13/12/2023
+
+### Updated
+
+- Update [.npmignore](.npmignore) file to ignore the `vault` folder.
+
+- Update templates to use the [cronos-utils](https://github.com/cronos-js/cronos-utils) latest version (canary version).
+
 ## [0.1.9] - 13/12/2023
 
 ### Added
