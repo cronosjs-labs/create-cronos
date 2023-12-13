@@ -1,6 +1,6 @@
 {
   "name": "create-cronos",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "Next Generation Fullstack Tooling",
   "repository": {
     "type": "git",
@@ -10,11 +10,13 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "node build/app.js",
     "build": "esbuild ./src/app.ts --bundle --outfile=./build/app.cjs --platform=node --minify",
-    "build:turbo": "turbo build",
+    "install-global": "npm install -g .",
+    "build-install": "turbo build install-global",
     "watch": "esbuild ./src/app.ts --bundle --outfile=./build/app.cjs --platform=node --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "format": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
   "bin": {
     "create-cronos": "./build/app.cjs"
@@ -30,14 +32,22 @@
   "license": "MIT",
   "dependencies": {
     "@inquirer/checkbox": "^1.4.0",
+    "@inquirer/prompts": "^3.3.0",
     "@inquirer/select": "^1.3.0",
+    "clean": "^4.0.2",
     "fs-extra": "^11.1.1",
     "inquirer": "^9.2.11",
+    "inquirer-autocomplete-standalone": "^0.8.1",
     "node-fetch": "^3.3.2",
+    "ora": "^7.0.1",
     "simple-git": "^3.20.0"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0",
     "esbuild": "0.19.5",
+    "eslint": "^8.54.0",
+    "prettier": "^3.1.0",
     "sharp": "^0.32.6",
     "turbo": "^1.10.16"
   }

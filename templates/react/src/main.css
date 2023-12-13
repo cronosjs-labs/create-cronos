@@ -3,12 +3,7 @@
 }
 
 .container {
-  background-image: conic-gradient(
-    from 180deg at 50% 50%,
-    #ffffff 0deg,
-    180deg,
-    #8ceeec 1turn
-  );
+  background-color: rgb(151, 210, 188);
   border-radius: 50%;
   filter: blur(72px);
   height: 200px;
@@ -27,6 +22,8 @@
   left: 50%;
   transform: translate(-50%, -50%);
   animation: rotate 4s linear infinite;
+  filter: drop-shadow(0 0 0.5rem #41b4b8);
+
 }
 
 @keyframes rotate {
