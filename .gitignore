@@ -1,5 +1,6 @@
 node_modules/
 ignore/
+vault/
 scripts/*.png
 
 templates/*/build
