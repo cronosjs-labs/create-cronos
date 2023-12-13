@@ -1,5 +1,7 @@
 node_modules/
 ignore/
+vault/
+ci/
 docs/
 scripts/
 
