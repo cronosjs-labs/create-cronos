@@ -43,13 +43,11 @@ You can install the packages that you are going to use during your development f
 npm create cronos@latest
 ```
 
-### 🟡 Canary version
-
-If you want to try the canary version of cronos you can use the `--canary` flag.
-
-```bash
-npm create cronos@latest -- --canary
-```
+> [!IMPORTANT]
+> If you want to try the canary version of cronos you can use the `--canary` flag.
+> ```bash
+> npm create cronos@latest -- --canary
+> ```
 
 ### 🎉 Thanks to the contributors of this project
 
