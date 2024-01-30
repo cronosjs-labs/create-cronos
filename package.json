@@ -10,16 +10,17 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "build": "esbuild ./src/app.ts --bundle --outfile=./build/app.cjs --platform=node --minify",
+    "ci": "act",
+    "build": "esbuild ./src/app.ts --bundle --outfile=./bin/app.cjs --platform=node --minify",
     "install-global": "npm install -g .",
     "build-install": "turbo build install-global",
-    "watch": "esbuild ./src/app.ts --bundle --outfile=./build/app.cjs --platform=node --watch",
+    "watch": "esbuild ./src/app.ts --bundle --outfile=./bin/app.cjs --platform=node --watch",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
   "bin": {
-    "create-cronos": "./build/app.cjs"
+    "create-cronos": "./bin/app.cjs"
   },
   "exports": {
     ".": "./app.js"
@@ -45,6 +46,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.12.0",
+    "create-next-app": "^14.1.0",
     "esbuild": "0.19.5",
     "eslint": "^8.54.0",
     "prettier": "^3.1.0",
