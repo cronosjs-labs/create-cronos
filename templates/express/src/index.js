@@ -1,17 +1,13 @@
-import dotenv from "dotenv";
+import { app } from './root.js'
 
-import express from "express";
+import dotenv from 'dotenv'
+import defaultRoute from './routes/default.route.js'
 
-import defaultRoute from "./routes/default.routes.js";
+dotenv.config()
+const port = process.env.PORT || 3000
 
-dotenv.config();
-
-const app = express();
-
-const port = process.env.PORT || 5050;
-
-app.use("/", defaultRoute);
+app.use(defaultRoute)
 
 app.listen(port, () => {
-  console.log(`🚀  \x1b[1mServer running on port \x1b[33m${port}\x1b[0m`);
-});
+  console.log(`⚡Server listening on port \x1b[33m${port}\x1b[37m`)
+})
