@@ -2,13 +2,12 @@ name: templates
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: ['main', 'master']
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
-        steps:
-        - uses: actions/checkout@v3
-        - name: Check local install
-          run: node ./ci/checkLocalInstall.js
-        
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Check local install
+        run: node ./ci/checkLocalInstall.js
