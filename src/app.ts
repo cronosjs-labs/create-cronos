@@ -18,7 +18,7 @@ console.clear();
 
 console.log('\x1b[33m────────────────────────────\x1b[37m');
 
-console.log('           \x1b[33m\x1b[1m\x1b[37mCronos 🔥  \x1b[0m\x1b[31m');
+console.log('      \x1b[33m\x1b[1m\x1b[37mCreate Cronos⚡  \x1b[0m\x1b[31m');
 
 //log github
 console.log('\x1b[33m\x1b[1m\x1b[31m    https://cronosjs.dev\x1b[0m\x1b[31m');
@@ -80,6 +80,10 @@ const main = async () => {
       value: 'vite'
     },
     {
+      name: '\x1b[1m\x1b[34mVitePress ↗\x1b[37m\x1b[0m',
+      value: 'vitepress'
+    },
+    {
       name: '\x1b[1m\x1b[37mNext.js ↗\x1b[37m\x1b[0m',
       value: 'next'
     },
@@ -117,6 +121,14 @@ const main = async () => {
 
     return new Promise((resolve) => {
       createNextApp.on('exit', resolve);
+    });
+  } else if (tech === 'vitepress') {
+    const createVitePressApp = spawn(npx, ['vitepress', 'init'], {
+      stdio: 'inherit'
+    });
+
+    return new Promise((resolve) => {
+      createVitePressApp.on('exit', resolve);
     });
   } else if (tech === 'express') {
     const rl = readline.createInterface({
