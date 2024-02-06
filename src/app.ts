@@ -23,7 +23,7 @@ console.clear();
 
 console.log('\x1b[33m────────────────────────────\x1b[37m');
 
-console.log('      \x1b[33m\x1b[1m\x1b[37m⚡Create Cronos \x1b[0m\x1b[31m');
+console.log('      \x1b[33m\x1b[1m\x1b[37m⚡ Create Cronos \x1b[0m\x1b[31m');
 
 //log github
 console.log('\x1b[33m\x1b[1m\x1b[31m    https://cronosjs.dev\x1b[0m\x1b[31m');

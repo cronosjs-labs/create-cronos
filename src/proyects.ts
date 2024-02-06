@@ -10,6 +10,16 @@ const vite: Project = {
   steps: [() => console.log("🚀 Let's go! 🚀")]
 };
 
+const astro = {
+  name: '\x1b[1m\x1b[33mAstro ↗\x1b[37m\x1b[0m',
+  value: 'astro',
+  type: 'external',
+  body: {
+    execCommand: 'create-astro@latest'
+  },
+  steps: [() => console.log("🚀 Let's go! 🚀")]
+};
+
 const next: Project = {
   name: '\x1b[1m\x1b[37mNext.js ↗\x1b[37m\x1b[0m',
   value: 'next',
@@ -20,12 +30,12 @@ const next: Project = {
   steps: [() => console.log("🚀 Let's go! 🚀")]
 };
 
-const vitepress: Project = {
-  name: '\x1b[1m\x1b[34mVitePress ↗\x1b[37m\x1b[0m',
-  value: 'vitepress',
+const hono = {
+  name: '\x1b[1m\x1b[31mHono ↗\x1b[37m\x1b[0m',
+  value: 'hono',
   type: 'external',
   body: {
-    execCommand: 'vitepress init'
+    execCommand: 'create-hono@latest'
   },
   steps: [() => console.log("🚀 Let's go! 🚀")]
 };
@@ -49,6 +59,6 @@ const express: Project = {
   ]
 };
 
-const projects: Project[] = [vite, next, vitepress, express];
+const projects: Project[] = [vite, astro, next, hono, express];
 
 export { projects };
