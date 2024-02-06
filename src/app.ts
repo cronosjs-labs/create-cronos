@@ -15,12 +15,14 @@ const os = process.platform;
 
 //! PROJECTS
 
-import { projects } from './proyects';
 import { Project } from '../types/Proyect';
 
-//! MIDDELWARE
+//! CONFIG
+import config from '../config';
 
-import Middleware from './middelware';
+//! PROJECTS & MIDDLEWARE
+const { projects } = config;
+const Middleware = config.middleware;
 
 //! PRINT LETTERS
 console.clear();
