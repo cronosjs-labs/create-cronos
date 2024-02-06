@@ -13,12 +13,16 @@ const { spawn } = require('child_process');
 const currentDir = __dirname;
 const os = process.platform;
 
+//! PROJECTS
+
+import { projects } from './proyects';
+
 //! PRINT LETTERS
 console.clear();
 
 console.log('\x1b[33m────────────────────────────\x1b[37m');
 
-console.log('      \x1b[33m\x1b[1m\x1b[37mCreate Cronos⚡  \x1b[0m\x1b[31m');
+console.log('      \x1b[33m\x1b[1m\x1b[37m⚡Create Cronos \x1b[0m\x1b[31m');
 
 //log github
 console.log('\x1b[33m\x1b[1m\x1b[31m    https://cronosjs.dev\x1b[0m\x1b[31m');
@@ -74,24 +78,14 @@ const copy = (src: string, dest: string) => {
 
 //! MAIN
 const main = async () => {
-  const techChoices: { name: string; value: string } | any = [
-    {
-      name: '\x1b[1m\x1b[35mVite ↗\x1b[37m\x1b[0m',
-      value: 'vite'
-    },
-    {
-      name: '\x1b[1m\x1b[34mVitePress ↗\x1b[37m\x1b[0m',
-      value: 'vitepress'
-    },
-    {
-      name: '\x1b[1m\x1b[37mNext.js ↗\x1b[37m\x1b[0m',
-      value: 'next'
-    },
-    {
-      name: '\x1b[1m\x1b[36mExpress\x1b[37m\x1b[0m',
-      value: 'express'
+  const techChoices: { name: string; value: string } | any = projects.map(
+    (project) => {
+      return {
+        name: project.name,
+        value: project.value
+      };
     }
-  ];
+  );
 
   //! TECH SELECT
 
