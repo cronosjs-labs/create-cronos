@@ -18,6 +18,10 @@ const os = process.platform;
 import { projects } from './proyects';
 import { Project } from '../types/Proyect';
 
+//! MIDDELWARE
+
+import Middleware from './middelware';
+
 //! PRINT LETTERS
 console.clear();
 
@@ -160,6 +164,10 @@ const main = async () => {
       //* Write the file to the target directory
       write(fileOrDir);
     }
+  }
+
+  for (const step of Middleware()) {
+    await step();
   }
 
   for (const step of project.steps) {

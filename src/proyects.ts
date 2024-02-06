@@ -7,7 +7,7 @@ const vite: Project = {
   body: {
     execCommand: 'create-vite@latest'
   },
-  steps: [() => console.log("🚀 Let's go! 🚀")]
+  steps: []
 };
 
 const astro = {
@@ -17,7 +17,7 @@ const astro = {
   body: {
     execCommand: 'create-astro@latest'
   },
-  steps: [() => console.log("🚀 Let's go! 🚀")]
+  steps: []
 };
 
 const next: Project = {
@@ -27,7 +27,7 @@ const next: Project = {
   body: {
     execCommand: 'create-next-app@latest'
   },
-  steps: [() => console.log("🚀 Let's go! 🚀")]
+  steps: []
 };
 
 const hono = {
@@ -37,7 +37,7 @@ const hono = {
   body: {
     execCommand: 'create-hono@latest'
   },
-  steps: [() => console.log("🚀 Let's go! 🚀")]
+  steps: []
 };
 
 const express: Project = {
@@ -50,7 +50,6 @@ const express: Project = {
   steps: [
     () =>
       console.log(`
-    🚀 Let's go! 🚀\n
     To get started:
     1. cd <project-name>
     2. npm install
