@@ -37,7 +37,16 @@ const express: Project = {
   body: {
     path: 'express'
   },
-  steps: [() => console.log("🚀 Let's go! 🚀")]
+  steps: [
+    () =>
+      console.log(`
+    🚀 Let's go! 🚀\n
+    To get started:
+    1. cd <project-name>
+    2. npm install
+    3. npm run dev
+  `)
+  ]
 };
 
 const projects: Project[] = [vite, next, vitepress, express];

@@ -1,16 +1,13 @@
-type LocalProject = {
-  path: string;
-};
-
-type ExternalProject = {
-  execCommand: string;
+type Body = {
+  path?: string;
+  execCommand?: string;
 };
 
 interface Project {
   name: string;
   value: string;
   type: 'local' | 'external';
-  body: LocalProject | ExternalProject;
+  body: Body;
   steps: Function[];
 }
 

@@ -16,6 +16,7 @@ const os = process.platform;
 //! PROJECTS
 
 import { projects } from './proyects';
+import { Project } from '../types/Proyect';
 
 //! PRINT LETTERS
 console.clear();
@@ -94,37 +95,28 @@ const main = async () => {
     choices: techChoices
   });
 
-  console.log("\n  🚀 Let's go! 🚀\n");
-
   //! CLONE REPO
 
   const npx = os === 'win32' ? 'npx.cmd' : 'npx';
 
-  if (tech === 'vite') {
-    const createViteApp = spawn(npx, ['create-vite@latest'], {
+  const project: Project | undefined = projects.find(
+    (project) => project.value === tech
+  );
+
+  if (!project) {
+    console.log('Project not found');
+    process.exit();
+  }
+
+  if (project.type === 'external') {
+    const createApp = spawn(npx, [project.body.execCommand], {
       stdio: 'inherit'
     });
 
-    return new Promise((resolve) => {
-      createViteApp.on('exit', resolve);
+    await new Promise((resolve) => {
+      createApp.on('exit', resolve);
     });
-  } else if (tech === 'next') {
-    const createNextApp = await spawn(npx, ['create-next-app@latest'], {
-      stdio: 'inherit'
-    });
-
-    return new Promise((resolve) => {
-      createNextApp.on('exit', resolve);
-    });
-  } else if (tech === 'vitepress') {
-    const createVitePressApp = spawn(npx, ['vitepress', 'init'], {
-      stdio: 'inherit'
-    });
-
-    return new Promise((resolve) => {
-      createVitePressApp.on('exit', resolve);
-    });
-  } else if (tech === 'express') {
+  } else {
     const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout
@@ -168,6 +160,10 @@ const main = async () => {
       //* Write the file to the target directory
       write(fileOrDir);
     }
+  }
+
+  for (const step of project.steps) {
+    await step();
   }
 };
 
