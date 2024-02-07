@@ -15,14 +15,13 @@ const os = process.platform;
 
 //! PROJECTS
 
-import { Project } from '../types/Proyect';
+import { Project } from '../types/Project';
 
 //! CONFIG
 import config from '../config';
 
 //! PROJECTS & MIDDLEWARE
-const { projects } = config;
-const Middleware = config.middleware;
+const { projects, preMiddleware, postMiddleware } = config;
 
 //! PRINT LETTERS
 console.clear();
@@ -94,6 +93,12 @@ const main = async () => {
     }
   );
 
+  //! PRE-MIDDLEWARE
+
+  for (const step of preMiddleware()) {
+    await step();
+  }
+
   //! TECH SELECT
 
   let tech = await select({
@@ -114,8 +119,24 @@ const main = async () => {
     process.exit();
   }
 
+  //! PROJECT NAME PROMPT
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  const prompt = (question: string) =>
+    new Promise((resolve) => rl.question(question, resolve));
+
+  //! PROJECT CREATION
+
   if (project.type === 'external') {
-    const createApp = spawn(npx, [project.body.execCommand], {
+    const execCommand =
+      typeof project.execCommand === 'string'
+        ? [project.execCommand]
+        : project.execCommand;
+
+    const createApp = spawn(npx, execCommand, {
       stdio: 'inherit'
     });
 
@@ -123,14 +144,6 @@ const main = async () => {
       createApp.on('exit', resolve);
     });
   } else {
-    const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout
-    });
-
-    const prompt = (question: string) =>
-      new Promise((resolve) => rl.question(question, resolve));
-
     const name = await prompt('📁 Project name: ');
 
     fs.mkdirSync(name as string);
@@ -168,7 +181,9 @@ const main = async () => {
     }
   }
 
-  for (const step of Middleware()) {
+  //! POST-MIDDLEWARE
+
+  for (const step of postMiddleware()) {
     await step();
   }
 
