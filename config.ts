@@ -1,10 +1,4 @@
-import { Project } from './types/Proyect';
-import { Middleware } from './types/Middleware';
-
-interface Config {
-  projects: Project[];
-  middleware: Middleware;
-}
+import { Config } from './types/Config';
 
 const config: Config = {
   projects: [
@@ -12,49 +6,50 @@ const config: Config = {
       name: '\x1b[1m\x1b[35mVite ↗\x1b[37m\x1b[0m',
       value: 'vite',
       type: 'external',
-      body: {
-        execCommand: 'create-vite@latest'
-      },
+      execCommand: 'create-vite@latest',
       steps: []
     },
-
+    {
+      name: '\x1b[1m\x1b[35mVitepress ↗\x1b[37m\x1b[0m',
+      value: 'vitepress',
+      type: 'external',
+      execCommand: ['vitepress', 'init'],
+      steps: []
+    },
     {
       name: '\x1b[1m\x1b[33mAstro ↗\x1b[37m\x1b[0m',
       value: 'astro',
       type: 'external',
-      body: {
-        execCommand: 'create-astro@latest'
-      },
+      execCommand: 'create-astro@latest',
       steps: []
     },
-
+    {
+      name: '\x1b[1m\x1b[33mStarlight ↗\x1b[37m\x1b[0m',
+      value: 'starlight',
+      type: 'external',
+      execCommand: ['create-astro@latest', '--template', 'starlight'],
+      steps: []
+    },
     {
       name: '\x1b[1m\x1b[37mNext.js ↗\x1b[37m\x1b[0m',
       value: 'next',
       type: 'external',
-      body: {
-        execCommand: 'create-next-app@latest'
-      },
+      execCommand: 'create-next-app@latest',
       steps: []
     },
-
     {
       name: '\x1b[1m\x1b[31mHono ↗\x1b[37m\x1b[0m',
       value: 'hono',
       type: 'external',
-      body: {
-        execCommand: 'create-hono@latest'
-      },
+      execCommand: 'create-hono@latest',
       steps: []
     },
-
     {
       name: '\x1b[1m\x1b[36mExpress\x1b[37m\x1b[0m',
       value: 'express',
       type: 'local',
-      body: {
-        path: 'express'
-      },
+
+      path: 'express',
       steps: [
         () =>
           console.log(`
@@ -66,7 +61,10 @@ const config: Config = {
       ]
     }
   ],
-  middleware: () => {
+  preMiddleware: () => {
+    return [() => console.log("🚀 Let's go! 🚀")];
+  },
+  postMiddleware: () => {
     return [() => console.log("🚀 Let's go! 🚀")];
   }
 };
