@@ -1,9 +1,9 @@
 <div align="center">
-<p><img alt="CRONOS" width="132" style="max-width:40%;min-width:60px;" src="./docs/public/Logo.png" /></p>
+<p><img alt="CRONOS" style="max-width:70%; min-width:70px;" src="./docs/public/cronos.png" /></p>
 
 # **_CREATE CRONOS_**
 
-## 🔥 **Next Generation Fullstack Tooling**
+Generate a project with Vite, Express, Next.js, Astro and other technologies with a single command.
 
 </div>
 
@@ -12,7 +12,6 @@
 ```bash
 npm create cronos@latest
 ```
-
 
 ### 🎉 Thanks to the contributors of this project
 
