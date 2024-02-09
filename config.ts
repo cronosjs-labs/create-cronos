@@ -1,3 +1,4 @@
+import { expressTsTransform } from './steps/expressTsTransform';
 import { Config } from './types/Config';
 
 const config: Config = {
@@ -51,6 +52,25 @@ const config: Config = {
 
       path: 'express',
       steps: [
+        () =>
+          console.log(`
+          To get started:
+          1. cd <project-name>
+          2. npm install
+          3. npm run dev
+        `)
+      ]
+    },
+    {
+      name: '\x1b[1m\x1b[36mExpress Typescript\x1b[37m\x1b[0m',
+      value: 'express-ts',
+      type: 'local',
+      path: 'express',
+      steps: [
+        () => {
+          console.log('Creating a new Express project with Typescript');
+        },
+        expressTsTransform,
         () =>
           console.log(`
           To get started:

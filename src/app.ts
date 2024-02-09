@@ -13,9 +13,10 @@ const { spawn } = require('child_process');
 const currentDir = __dirname;
 const os = process.platform;
 
-//! PROJECTS
+//! TYPES
 
 import { Project } from '../types/Project';
+import { Data } from '../types/Data';
 
 //! CONFIG
 import config from '../config';
@@ -150,7 +151,7 @@ const main = async () => {
 
     process.chdir(name as string);
 
-    const templateDir = path.join(currentDir, `../templates/${tech}`);
+    const templateDir = path.join(currentDir, `../templates/${project.path}`);
 
     const targetDir = process.cwd();
 
@@ -179,16 +180,20 @@ const main = async () => {
       //* Write the file to the target directory
       write(fileOrDir);
     }
-  }
 
-  //! POST-MIDDLEWARE
+    //! POST-MIDDLEWARE
 
-  for (const step of postMiddleware()) {
-    await step();
-  }
+    for (const step of postMiddleware()) {
+      await step();
+    }
 
-  for (const step of project.steps) {
-    await step();
+    const data: Data = {
+      name: name as string
+    };
+
+    for (const step of project.steps) {
+      await step(data);
+    }
   }
 };
 
