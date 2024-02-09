@@ -3,8 +3,8 @@ import { Middleware } from './Middleware';
 
 interface Config {
   projects: Project[];
-  preMiddleware: Middleware;
-  postMiddleware: Middleware;
+  initializer: Middleware;
+  finalizer: Middleware;
 }
 
 export { Config };

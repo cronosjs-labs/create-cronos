@@ -22,7 +22,7 @@ import { Data } from '../types/Data';
 import config from '../config';
 
 //! PROJECTS & MIDDLEWARE
-const { projects, preMiddleware, postMiddleware } = config;
+const { projects, initializer, finalizer } = config;
 
 //! PRINT LETTERS
 console.clear();
@@ -96,7 +96,7 @@ const main = async () => {
 
   //! PRE-MIDDLEWARE
 
-  for (const step of preMiddleware()) {
+  for (const step of initializer()) {
     await step();
   }
 
@@ -183,7 +183,7 @@ const main = async () => {
 
     //! POST-MIDDLEWARE
 
-    for (const step of postMiddleware()) {
+    for (const step of finalizer()) {
       await step();
     }
 

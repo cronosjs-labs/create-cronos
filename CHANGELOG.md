@@ -2,6 +2,13 @@
 
 Return to [README.md](../../README.md)
 
+## [0.1.12] - 09/01/2024
+
+### Updated
+
+- Add Starlight, Hono, and Express with TypeScript support.
+- Added base API for building custom generators.
+
 ## [0.1.10] - 13/12/2023
 
 ### Updated

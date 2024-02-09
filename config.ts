@@ -81,10 +81,10 @@ const config: Config = {
       ]
     }
   ],
-  preMiddleware: () => {
+  initializer: () => {
     return [() => console.log("🚀 Let's go! 🚀")];
   },
-  postMiddleware: () => {
+  finalizer: () => {
     return [() => console.log("🚀 Let's go! 🚀")];
   }
 };
