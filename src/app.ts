@@ -24,17 +24,21 @@ import config from '../config';
 //! PROJECTS & MIDDLEWARE
 const { projects, initializer, finalizer } = config;
 
-//! PRINT LETTERS
-console.clear();
+//! PRINT BANNER
 
-console.log('\x1b[33m────────────────────────────\x1b[37m');
+if (config.banner) {
+  config.banner();
+} else {
+  console.clear();
 
-console.log('      \x1b[33m\x1b[1m\x1b[37m⚡ Create Cronos \x1b[0m\x1b[31m');
+  console.log('\x1b[33m────────────────────────────\x1b[37m');
 
-//log github
-console.log('\x1b[33m\x1b[1m\x1b[31m    https://cronosjs.dev\x1b[0m\x1b[31m');
+  console.log('      \x1b[33m\x1b[1m\x1b[37m⚡ Create Cronos \x1b[0m\x1b[31m');
 
-console.log('\x1b[33m────────────────────────────\x1b[37m');
+  console.log('\x1b[33m\x1b[1m\x1b[31m    https://cronosjs.dev\x1b[0m\x1b[31m');
+
+  console.log('\x1b[33m────────────────────────────\x1b[37m');
+}
 
 //* ----------------------------------------------------------------------------------------
 

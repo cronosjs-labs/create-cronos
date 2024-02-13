@@ -2,6 +2,21 @@ import { expressTsTransform } from './steps/expressTsTransform';
 import { Config } from './types/Config';
 
 const config: Config = {
+  banner: () => {
+    console.clear();
+
+    console.log('\x1b[33m────────────────────────────\x1b[37m');
+
+    console.log(
+      '      \x1b[33m\x1b[1m\x1b[37m⚡ Create Cronos \x1b[0m\x1b[31m'
+    );
+
+    console.log(
+      '\x1b[33m\x1b[1m\x1b[31m    https://cronosjs.dev\x1b[0m\x1b[31m'
+    );
+
+    console.log('\x1b[33m────────────────────────────\x1b[37m');
+  },
   projects: [
     {
       name: '\x1b[1m\x1b[35mVite ↗\x1b[37m\x1b[0m',
