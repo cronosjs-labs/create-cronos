@@ -46,11 +46,20 @@ console.log('\x1b[33m───────────────────�
  */
 
 const copyDir = (srcDir: string, destDir: string) => {
-  fs.mkdirSync(destDir, { recursive: true });
-  for (const file of fs.readdirSync(srcDir)) {
-    const srcFile = path.resolve(srcDir, file);
-    const destFile = path.resolve(destDir, file);
-    copy(srcFile, destFile);
+  try {
+    fs.mkdirSync(destDir, { recursive: true });
+  } catch (err) {
+    console.log(err);
+  }
+
+  try {
+    for (const file of fs.readdirSync(srcDir)) {
+      const srcFile = path.resolve(srcDir, file);
+      const destFile = path.resolve(destDir, file);
+      copy(srcFile, destFile);
+    }
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -67,11 +76,15 @@ const copy = (src: string, dest: string) => {
   if (stat.isDirectory()) {
     copyDir(src, dest);
   } else {
-    if (src.includes('_gitignore')) {
-      const newDest = dest.replace('_', '.');
-      fs.copyFileSync(src, newDest);
-    } else {
-      fs.copyFileSync(src, dest);
+    try {
+      if (src.includes('_gitignore')) {
+        const newDest = dest.replace('_', '.');
+        fs.copyFileSync(src, newDest);
+      } else {
+        fs.copyFileSync(src, dest);
+      }
+    } catch (err) {
+      console.log(err);
     }
   }
 };

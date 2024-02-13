@@ -1,10 +1,10 @@
 {
   "name": "create-cronos",
-  "version": "0.1.13",
-  "description": "Next Generation Fullstack Tooling",
+  "version": "0.1.14",
+  "description": "Generate a project with Vite, Express, Next.js, Astro and other technologies with a single command.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cronos-js/cronos.js"
+    "url": "git+https://github.com/cronosjs-labs/create-cronos"
   },
   "homepage": "cronosjs.dev/",
   "main": "app.js",
@@ -27,7 +27,8 @@
   },
   "keywords": [
     "cronos",
-    "create-cronos"
+    "create-cronos",
+    "project generator"
   ],
   "author": "",
   "license": "MIT",
