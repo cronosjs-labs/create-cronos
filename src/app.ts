@@ -115,9 +115,26 @@ const main = async () => {
 
   //! TECH SELECT
 
-  let tech = await select({
+  const { default: autocomplete, Separator } = await import(
+    'inquirer-autocomplete-standalone'
+  );
+
+  let tech = await autocomplete({
     message: '💻 Select a technology:',
-    choices: techChoices
+    source: async (input) => {
+      let filteredCountries = techChoices.filter((tech) => {
+        return tech.name.toLowerCase().includes(input?.toLowerCase());
+      });
+
+      if (!input) return techChoices;
+
+      return filteredCountries.map((tech) => {
+        return {
+          value: tech.name,
+          description: `\x1b[0m${tech.name}`
+        };
+      });
+    }
   });
 
   //! CLONE REPO
