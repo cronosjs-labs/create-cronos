@@ -1,6 +1,6 @@
 {
   "name": "create-cronos",
-  "version": "0.1.14",
+  "version": "0.2.0",
   "description": "Generate a project with Vite, Express, Next.js, Astro and other technologies with a single command.",
   "repository": {
     "type": "git",
@@ -8,7 +8,7 @@
   },
   "homepage": "cronosjs.dev/",
   "main": "app.js",
-  "type": "module",
+
   "scripts": {
     "ci": "act",
     "build": "esbuild ./src/app.ts --bundle --outfile=./bin/app.cjs --platform=node --minify",
@@ -47,6 +47,7 @@
     "eslint": "^8.54.0",
     "minify": "^11.0.1",
     "prettier": "^3.1.0",
+    "ts-node": "^10.9.2",
     "turbo": "^1.10.16"
   }
 }

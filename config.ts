@@ -94,6 +94,13 @@ const config: Config = {
           3. npm run dev
         `)
       ]
+    },
+    {
+      name: '\x1b[1m\x1b[32mAngular\x1b[37m\x1b[0m',
+      value: 'angular',
+      type: 'external',
+      execCommand: ['@angular/cli', 'new'],
+      steps: []
     }
   ],
   initializer: () => {

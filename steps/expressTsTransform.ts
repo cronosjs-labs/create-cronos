@@ -63,7 +63,7 @@ const expressTsTransform = (data: Data) => {
 
   let files = fs.readdirSync(targetDir);
 
-  let folders = files.filter((file) => {
+  let folders = files.filter((file: string) => {
     return fs.statSync(path.join(targetDir, file)).isDirectory();
   });
 
@@ -71,12 +71,12 @@ const expressTsTransform = (data: Data) => {
 
   console.log('⚙️  Changing file extensions to .ts');
 
-  folders.forEach((folder) => {
+  folders.forEach((folder: string) => {
     const files = fs
       .readdirSync(path.join(targetDir, folder))
-      .filter((file) => file.endsWith('.js'));
+      .filter((file: string) => file.endsWith('.js'));
 
-    files.forEach((file) => {
+    files.forEach((file: string) => {
       changeFileExtension(path.join(targetDir, folder, file), 'ts');
     });
   });
