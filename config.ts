@@ -22,6 +22,9 @@ const config: Config = {
       name: '\x1b[1m\x1b[35mVite ↗\x1b[37m\x1b[0m',
       value: 'vite',
       type: 'external',
+      description:
+        'Build tool that aims to provide a faster and leaner development experience for modern web projects.',
+      //! Bibliography: //* https://vitejs.dev/
       execCommand: 'create-vite@latest',
       steps: []
     },
@@ -96,7 +99,7 @@ const config: Config = {
       ]
     },
     {
-      name: '\x1b[1m\x1b[32mAngular\x1b[37m\x1b[0m',
+      name: '\x1b[1m\x1b[32mAngular ↗\x1b[37m\x1b[0m',
       value: 'angular',
       type: 'external',
       execCommand: ['@angular/cli', 'new'],

@@ -2,6 +2,12 @@
 
 Return to [README.md](../../README.md)
 
+# [0.1.15] - 16/02/2024
+
+### Added
+
+- Search engine to autocomplete technology searches
+
 ## [0.1.12] - 09/01/2024
 
 ### Updated

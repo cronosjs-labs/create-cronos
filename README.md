@@ -13,6 +13,27 @@ Generate a project with Vite, Express, Next.js, Astro and other technologies wit
 npm create cronos@latest
 ```
 
+### 📦 Supported technologies
+
+- [x] Vite
+- [x] Vitepress
+- [x] Astro
+- [x] Starlight
+- [x] Next.js
+- [x] Hono
+- [x] Express
+- [x] Angular
+- [ ] Nuxt
+- [ ] Qwik
+- [ ] Rspack
+- [ ] Tauri
+- [ ] React Native
+
+
+### 📚 Docs
+
+You can find the documentation at [cronosjs.dev/](cronosjs.dev/).
+
 ### 🎉 Thanks to the contributors of this project
 
 - [@LZeth](https://github.com/LZeth) for the logo design.

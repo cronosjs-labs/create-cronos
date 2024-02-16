@@ -2,7 +2,6 @@
 
 //! esm
 import readline from 'readline';
-import select from '@inquirer/select';
 import fs from 'fs';
 
 //! commonjs
@@ -106,7 +105,8 @@ const main = async () => {
     (project) => {
       return {
         name: project.name,
-        value: project.value
+        value: project.value,
+        description: project.description ? project.description : project.name
       };
     }
   );
@@ -134,8 +134,9 @@ const main = async () => {
 
       return filteredCountries.map((tech) => {
         return {
-          value: tech.name,
-          description: `\x1b[0m${tech.name}`
+          value: tech.value,
+          name: `\x1b[0m${tech.name}`,
+          description: tech.description
         };
       });
     }

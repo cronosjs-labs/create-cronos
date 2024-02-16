@@ -1,6 +1,6 @@
 {
   "name": "create-cronos",
-  "version": "0.2.0",
+  "version": "0.1.15",
   "description": "Generate a project with Vite, Express, Next.js, Astro and other technologies with a single command.",
   "repository": {
     "type": "git",
