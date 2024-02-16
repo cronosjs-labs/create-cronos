@@ -30,9 +30,9 @@ npm create cronos@latest
 - [ ] React Native
 
 
-### 📚 Docs
+### 📚 API Docs
 
-You can find the documentation at [cronosjs.dev/](cronosjs.dev/).
+Generate your own project generator adapted to the needs of your organization in record time using the Create Cronos API. You can find the documentation at [cronosjs.dev/](cronosjs.dev/).
 
 ### 🎉 Thanks to the contributors of this project
 
