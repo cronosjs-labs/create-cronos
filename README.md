@@ -3,7 +3,7 @@
 
 # **_CREATE CRONOS_**
 
-Generate a project with Vite, Express, Next.js, Astro and other technologies with a single command.
+## Generate a project with Vite, Express, Next.js, Astro and other technologies with a single command.
 
 </div>
 
