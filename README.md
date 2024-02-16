@@ -3,7 +3,9 @@
 
 # **_CREATE CRONOS_**
 
-## Generate a project with Vite, Express, Next.js, Astro and other technologies with a single command.
+[![npm](https://img.shields.io/npm/v/create-cronos?color=green&label=Create%20Cronos&style=for-the-badge)](https://www.npmjs.com/package/create-cronos)
+
+### Generate a project with Vite, Express, Next.js, Astro and other technologies with a single command.
 
 </div>
 
@@ -23,12 +25,15 @@ npm create cronos@latest
 - [x] Hono
 - [x] Express
 - [x] Angular
-- [ ] Nuxt
-- [ ] Qwik
-- [ ] Rspack
-- [ ] Tauri
-- [ ] React Native
 
+### 📋 Roadmap
+
+- [ ] Add support for Nuxt
+- [ ] Add support for Qwik
+- [ ] Add support for Rspack
+- [ ] Add support for Tauri
+- [ ] Add support for React Native
+- [ ] Use Rollup as the default bundler
 
 ### 📚 API Docs
 
