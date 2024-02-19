@@ -1,20 +1,19 @@
 {
   "name": "create-cronos",
-  "version": "0.1.15",
-  "description": "Generate a project with Vite, Express, Next.js, Astro and other technologies with a single command.",
+  "version": "0.1.11",
+  "description": "Next Generation Fullstack Tooling",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cronosjs-labs/create-cronos"
+    "url": "git+https://github.com/cronos-js/cronos.js"
   },
   "homepage": "cronosjs.dev/",
   "main": "app.js",
-
+  "type": "module",
   "scripts": {
     "ci": "act",
-    "build": "esbuild ./src/app.ts --bundle --outfile=./bin/app.cjs --platform=node --minify",
+    "build": "rollup -c",
     "install-global": "npm install -g .",
     "build-install": "turbo build install-global",
-    "watch": "esbuild ./src/app.ts --bundle --outfile=./bin/app.cjs --platform=node --watch",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write"
@@ -27,8 +26,7 @@
   },
   "keywords": [
     "cronos",
-    "create-cronos",
-    "project generator"
+    "create-cronos"
   ],
   "author": "",
   "license": "MIT",
@@ -36,18 +34,22 @@
     "@inquirer/checkbox": "^1.4.0",
     "@inquirer/prompts": "^3.3.0",
     "@inquirer/select": "^1.3.0",
+    "clean": "^4.0.2",
     "fs-extra": "^11.1.1",
     "inquirer": "^9.2.11",
-    "inquirer-autocomplete-standalone": "^0.8.1"
+    "inquirer-autocomplete-standalone": "^0.8.1",
+    "node-fetch": "^3.3.2",
+    "ora": "^7.0.1",
+    "simple-git": "^3.20.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.12.0",
-    "esbuild": "^0.19.5",
+    "create-next-app": "^14.1.0",
+    "esbuild": "0.19.5",
     "eslint": "^8.54.0",
-    "minify": "^11.0.1",
     "prettier": "^3.1.0",
-    "ts-node": "^10.9.2",
+    "sharp": "^0.32.6",
     "turbo": "^1.10.16"
   }
 }

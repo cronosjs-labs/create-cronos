@@ -33,7 +33,7 @@ npm create cronos@latest
 - [ ] Add support for Rspack
 - [ ] Add support for Tauri
 - [ ] Add support for React Native
-- [ ] Use Rollup as a bundler
+- [x] Use Rollup as a bundler
 
 ### 📚 API Docs
 
