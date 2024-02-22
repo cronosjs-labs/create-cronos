@@ -68,6 +68,17 @@ And all the people that have contributed to this project.
 
 See the [CHANGELOG](CHANGELOG.md) file for details about the changes made in each version of the project.
 
-### 📝 License
+### 
 
-This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
+---
+
+<div align="center">
+  
+  ## 📝 License
+  
+  # MIT
+  
+</div>
+
+---
+
