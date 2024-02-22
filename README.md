@@ -54,9 +54,9 @@ npm create cronos@latest
 - [ ] Add support for Rspack
 - [ ] Add support for React Native
 
-### 📚 API Docs
+### 📚 API
 
-Generate your own project generator adapted to the needs of your organization in record time using the Create Cronos API. You can find the documentation at [cronosjs.dev](https://cronosjs.dev/).
+Generate your `own project generator` adapted to the needs of your organization in record time using the `Create Cronos API`. You can find the documentation at [cronosjs.dev](https://cronosjs.dev/).
 
 ### 🎉 Thanks to the contributors of this project
 
