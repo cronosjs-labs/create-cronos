@@ -26,18 +26,24 @@ npm create cronos@latest
 - [x] Express
 - [x] Angular
 
-### 📋 Roadmap
+### 📋 Roadmap - 0.1.16
+
+- [x] Add support for Qwik
+- [x] Add support for Tauri
+- [x] Add pnpm as default package manager
+- [x] Local configuration support
+- [x] Use Rollup as a bundler
+
+### 📋 Roadmap - 0.1.17
 
 - [ ] Add support for Nuxt
-- [ ] Add support for Qwik
 - [ ] Add support for Rspack
-- [ ] Add support for Tauri
 - [ ] Add support for React Native
-- [x] Use Rollup as a bundler
 
 ### 📚 API Docs
 
 Generate your own project generator adapted to the needs of your organization in record time using the Create Cronos API. You can find the documentation at [cronosjs.dev](https://cronosjs.dev/).
+
 ### 🎉 Thanks to the contributors of this project
 
 - [@LZeth](https://github.com/LZeth) for the logo design.
