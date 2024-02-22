@@ -45,7 +45,7 @@ const changeFileExtension = (filePath: string, newExtension: string) => {
   fs.renameSync(filePath, newFile);
 };
 
-const expressTsTransform = (data: Data) => {
+const expressTSTransform = (data: Data) => {
   console.clear();
 
   const folderPath = data.name;
@@ -234,6 +234,7 @@ const expressTsTransform = (data: Data) => {
   );
 
   packageJson2.dependencies['@types/express'] = 'latest';
+  packageJson2.dependencies['@types/supertest'] = 'latest';
 
   fs.writeFileSync(
     path.join(process.cwd(), 'package.json'),
@@ -243,4 +244,4 @@ const expressTsTransform = (data: Data) => {
   console.log('✅ Done');
 };
 
-export { expressTsTransform };
+export { expressTSTransform };

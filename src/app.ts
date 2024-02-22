@@ -4,40 +4,32 @@
 import readline from 'readline';
 import fs from 'fs';
 
+import { build } from 'esbuild';
+
 //! commonjs
 const path = require('path');
 const { spawn } = require('child_process');
+const os = require('os');
+//const storage = require('node-persist');
 
 //! VARIABLES
 const currentDir = __dirname;
-const os = process.platform;
+
+const OS = process.platform;
+
+const homeDir = os.homedir();
 
 //! TYPES
 
 import { Project } from '../types/Project';
 import { Data } from '../types/Data';
 
-//! CONFIG
-import config from '../config';
+//! Config
+import config from '../config/config';
+let Config = config;
 
-//! PROJECTS & MIDDLEWARE
-const { projects, initializer, finalizer } = config;
-
-//! PRINT BANNER
-
-if (config.banner) {
-  config.banner();
-} else {
-  console.clear();
-
-  console.log('\x1b[33m────────────────────────────\x1b[37m');
-
-  console.log('      \x1b[33m\x1b[1m\x1b[37m⚡ Create Cronos \x1b[0m\x1b[31m');
-
-  console.log('\x1b[33m\x1b[1m\x1b[31m    https://cronosjs.dev\x1b[0m\x1b[31m');
-
-  console.log('\x1b[33m────────────────────────────\x1b[37m');
-}
+//! STORAGE
+//storage.init({ dir: `${homeDir}/.cronos` });
 
 //* ----------------------------------------------------------------------------------------
 
@@ -101,19 +93,91 @@ const copy = (src: string, dest: string) => {
 
 //! MAIN
 const main = async () => {
-  const techChoices: { name: string; value: string } | any = projects.map(
-    (project) => {
+  //! CHECK IF LOCAL CONFIG IS PASSED USING THE -c FLAG
+  const args = process.argv.slice(2);
+  const configIndex = args.indexOf('-c');
+  const configPath = args[configIndex + 1];
+
+  if (args.includes('-c')) {
+    //! CHECK IF LOCAL CONFIG EXISTS AND LOAD IT
+    if (!configPath) {
+      if (fs.existsSync(homeDir + '/.cronos/config.js')) {
+        const localConfigPath = homeDir + '/.cronos/config.js';
+
+        const normalizedLocalConfigPath = localConfigPath
+          .replace(/\\/g, '/')
+          .replace('C:/', '/');
+
+        const localConfig = await import(normalizedLocalConfigPath);
+
+        Config = localConfig.default.default;
+
+        console.log('Local config loaded');
+      }
+      //! COMPILE, SAVE AND LOAD LOCAL CONFIG
+      else {
+        const absoluteConfigPath = path.resolve(process.cwd(), configPath);
+        const normalizedPath = absoluteConfigPath
+          .replace(/\\/g, '/')
+          .replace('C:/', '/');
+
+        if (configPath) {
+          await build({
+            entryPoints: [normalizedPath],
+            outfile: homeDir + '/.cronos/config.js',
+            bundle: true,
+            loader: { '.ts': 'ts' },
+            platform: 'node'
+          });
+
+          const localConfigPath = homeDir + '/.cronos/config.js';
+
+          const normalizedLocalConfigPath = localConfigPath
+            .replace(/\\/g, '/')
+            .replace('C:/', '/');
+
+          const localConfig = await import(normalizedLocalConfigPath);
+
+          Config = localConfig.default.default;
+
+          console.log('Local config loaded');
+        }
+      }
+    }
+  }
+
+  //! PRINT BANNER
+
+  if (typeof Config.banner === 'function') {
+    Config.banner();
+  } else {
+    console.clear();
+
+    console.log('\x1b[33m────────────────────────────\x1b[37m');
+
+    console.log(
+      '      \x1b[33m\x1b[1m\x1b[37m⚡ Create Cronos \x1b[0m\x1b[31m'
+    );
+
+    console.log(
+      '\x1b[33m\x1b[1m\x1b[31m    https://cronosjs.dev\x1b[0m\x1b[31m'
+    );
+
+    console.log('\x1b[33m────────────────────────────\x1b[37m');
+  }
+
+  const techChoices: { name: string; value: string } | any =
+    Config.projects.map((project) => {
       return {
         name: project.name,
         value: project.value,
         description: project.description ? project.description : project.name
       };
-    }
-  );
+    });
 
   //! PRE-MIDDLEWARE
 
-  for (const step of initializer()) {
+  for (const step of Config.initializer()) {
     await step();
   }
 
@@ -144,9 +208,11 @@ const main = async () => {
 
   //! CLONE REPO
 
-  const npx = os === 'win32' ? 'npx.cmd' : 'npx';
+  const npx = OS === 'win32' ? 'npx.cmd' : 'npx';
 
-  const project: Project | undefined = projects.find(
+  const npm = OS === 'win32' ? 'npm.cmd' : 'npm';
+
+  const project: Project | undefined = Config.projects.find(
     (project) => project.value === tech
   );
 
@@ -167,14 +233,25 @@ const main = async () => {
   //! PROJECT CREATION
 
   if (project.type === 'external') {
-    const execCommand =
+    let execCommand =
       typeof project.execCommand === 'string'
         ? [project.execCommand]
         : project.execCommand;
 
-    const createApp = spawn(npx, execCommand, {
-      stdio: 'inherit'
-    });
+    let createApp;
+
+    if (
+      Config.projects.find((p) => p.value === tech)?.create === false ||
+      !project.create
+    ) {
+      createApp = spawn(npx, execCommand, {
+        stdio: 'inherit'
+      });
+    } else {
+      createApp = spawn(npm, ['create', execCommand], {
+        stdio: 'inherit'
+      });
+    }
 
     await new Promise((resolve) => {
       createApp.on('exit', resolve);
@@ -216,18 +293,17 @@ const main = async () => {
       write(fileOrDir);
     }
 
-    //! POST-MIDDLEWARE
-
-    for (const step of finalizer()) {
-      await step();
-    }
-
     const data: Data = {
       name: name as string
     };
 
     for (const step of project.steps) {
       await step(data);
+    }
+
+    //! FINALIZER
+    for (const step of Config.finalizer()) {
+      await step();
     }
   }
 };
