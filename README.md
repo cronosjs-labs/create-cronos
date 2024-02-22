@@ -3,19 +3,33 @@
 
 # **_CREATE CRONOS_**
 
-[![npm](https://img.shields.io/npm/v/create-cronos?color=green&label=Create%20Cronos&style=for-the-badge)](https://www.npmjs.com/package/create-cronos)
+### Generate a project with Vite, Express, Tauri, Next.js, Astro and other technologies with a single command.
 
-### Generate a project with Vite, Express, Next.js, Astro and other technologies with a single command.
+[![npm](https://img.shields.io/npm/v/create-cronos?color=green&label=Create%20Cronos&style=for-the-badge)](https://www.npmjs.com/package/create-cronos)
 
 </div>
 
-### 🚀 Quick start
+### ⚡ Quick start
 
 ```bash
 npm create cronos@latest
 ```
 
+### 🚀 Manteined templates
+
+> [!IMPORTANT]
+> The following templates are manteined in the Create Cronos project.
+
+  - Express ( `./templates/express` )
+    - [x] Unit tests with Vitest
+    - [x] Nodemon to watch changes
+    - [x] Eslint and Prettier
+    - [x] Typescript support
+
 ### 📦 Supported technologies
+
+> [!NOTE]
+> When you create a project with Create Cronos, you can choose the technology you want to use. The following technologies are supported by default.
 
 - [x] Vite
 - [x] Vitepress
