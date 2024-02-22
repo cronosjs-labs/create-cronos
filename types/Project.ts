@@ -6,6 +6,7 @@ interface Project {
   steps: Function[];
   path?: string;
   execCommand?: string | string[];
+  create?: boolean;
 }
 
 export { Project };
