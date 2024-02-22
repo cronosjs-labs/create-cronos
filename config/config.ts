@@ -1,5 +1,5 @@
-import { expressTsTransform } from './steps/expressTsTransform';
-import { Config } from './types/Config';
+import { expressTSTransform } from '../steps/@expressTSTransform';
+import { Config } from '../types/Config';
 
 const config: Config = {
   banner: () => {
@@ -67,7 +67,6 @@ const config: Config = {
       name: '\x1b[1m\x1b[36mExpress\x1b[37m\x1b[0m',
       value: 'express',
       type: 'local',
-
       path: 'express',
       steps: [
         () =>
@@ -88,7 +87,7 @@ const config: Config = {
         () => {
           console.log('Creating a new Express project with Typescript');
         },
-        expressTsTransform,
+        expressTSTransform,
         () =>
           console.log(`
           To get started:
@@ -103,6 +102,22 @@ const config: Config = {
       value: 'angular',
       type: 'external',
       execCommand: ['@angular/cli', 'new'],
+      steps: []
+    },
+    {
+      name: '\x1b[1m\x1b[33mTauri ↗\x1b[37m\x1b[0m',
+      value: 'tauri',
+      type: 'external',
+      execCommand: ['tauri-app@latest'],
+      create: true,
+      steps: []
+    },
+    {
+      name: '\x1b[1m\x1b[36mQuik ↗\x1b[37m\x1b[0m',
+      value: 'quik',
+      type: 'external',
+      execCommand: ['qwik@latest'],
+      create: true,
       steps: []
     }
   ],
