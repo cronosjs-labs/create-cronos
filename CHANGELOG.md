@@ -2,6 +2,16 @@
 
 Return to [README.md](../../README.md)
 
+### Added
+
+- Qwik support
+- Tauri support
+- pnpm as default package manager
+- Local configuration support
+- Rollup as a default bundler
+
+### 
+
 # [0.1.15] - 16/02/2024
 
 ### Added
