@@ -40,14 +40,6 @@ npm create cronos@latest
 - [x] Express
 - [x] Angular
 
-### 📋 Roadmap - 0.1.16
-
-- [x] Add support for Qwik
-- [x] Add support for Tauri
-- [x] Add pnpm as default package manager
-- [x] Local configuration support
-- [x] Use Rollup as a bundler
-
 ### 📋 Roadmap - 0.1.17
 
 - [ ] Add support for Nuxt
