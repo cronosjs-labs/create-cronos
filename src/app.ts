@@ -10,7 +10,6 @@ import { build } from 'esbuild';
 const path = require('path');
 const { spawn } = require('child_process');
 const os = require('os');
-//const storage = require('node-persist');
 
 //! VARIABLES
 const currentDir = __dirname;
@@ -27,9 +26,6 @@ import { Data } from '../types/Data';
 //! Config
 import config from '../config/config';
 let Config = config;
-
-//! STORAGE
-//storage.init({ dir: `${homeDir}/.cronos` });
 
 //* ----------------------------------------------------------------------------------------
 
@@ -100,7 +96,7 @@ const main = async () => {
 
   if (args.includes('-c')) {
     //! CHECK IF LOCAL CONFIG EXISTS AND LOAD IT
-    if (!configPath) {
+    if (configPath)
       if (fs.existsSync(homeDir + '/.cronos/config.js')) {
         const localConfigPath = homeDir + '/.cronos/config.js';
 
@@ -122,26 +118,61 @@ const main = async () => {
           .replace('C:/', '/');
 
         if (configPath) {
-          await build({
-            entryPoints: [normalizedPath],
-            outfile: homeDir + '/.cronos/config.js',
-            bundle: true,
-            loader: { '.ts': 'ts' },
-            platform: 'node'
-          });
+          console.log('Compiling local config...');
 
-          const localConfigPath = homeDir + '/.cronos/config.js';
+          const isTS = normalizedPath.endsWith('.ts');
 
-          const normalizedLocalConfigPath = localConfigPath
-            .replace(/\\/g, '/')
-            .replace('C:/', '/');
+          if (isTS) {
+            console.log('Typescript config detected');
 
-          const localConfig = await import(normalizedLocalConfigPath);
+            await build({
+              entryPoints: [normalizedPath],
+              outfile: homeDir + '/.cronos/config.js',
+              bundle: true,
+              loader: { '.ts': 'ts' },
+              platform: 'node'
+            });
 
-          Config = localConfig.default.default;
+            const localConfigPath = homeDir + '/.cronos/config.js';
 
-          console.log('Local config loaded');
+            const normalizedLocalConfigPath = localConfigPath
+              .replace(/\\/g, '/')
+              .replace('C:/', '/');
+
+            const localConfig = await import(normalizedLocalConfigPath);
+
+            Config = localConfig.default.default;
+
+            console.log('Local config loaded');
+          } else {
+            const localConfig = await import(normalizedPath);
+
+            Config = localConfig.default.default;
+
+            if (!fs.existsSync(homeDir + '/.cronos')) {
+              fs.mkdirSync(homeDir + '/.cronos');
+            }
+
+            fs.copyFileSync(normalizedPath, homeDir + '/.cronos/config.js');
+
+            console.log('Local config loaded');
+          }
         }
+      }
+    else {
+      const configExist = fs.existsSync(homeDir + '/.cronos' + '/config.js');
+      if (configExist) {
+        const localConfigPath = homeDir + '/.cronos/config.js';
+
+        const normalizedLocalConfigPath = localConfigPath
+          .replace(/\\/g, '/')
+          .replace('C:/', '/');
+
+        const localConfig = await import(normalizedLocalConfigPath);
+
+        Config = localConfig.default.default;
+
+        console.log('Local config loaded');
       }
     }
   }
