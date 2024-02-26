@@ -32,6 +32,7 @@ npm create cronos@latest
 > When you create a project with Create Cronos, you can choose the technology you want to use. The following technologies are supported by default.
 
 - [x] Vite
+- [x] Tauri
 - [x] Vitepress
 - [x] Astro
 - [x] Starlight
