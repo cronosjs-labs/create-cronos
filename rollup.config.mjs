@@ -4,7 +4,7 @@ import typescript from '@rollup/plugin-typescript';
 export default {
   input: 'src/app.ts',
   output: {
-    file: 'bin/app.cjs',
+    file: 'bin/app.js',
     format: 'cjs'
   },
   plugins: [typescript()]

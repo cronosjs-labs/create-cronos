@@ -3,7 +3,7 @@
 //! esm
 import readline from 'readline';
 import fs from 'fs';
-
+import yargs, { Argv } from 'yargs';
 import { build } from 'esbuild';
 
 //! commonjs
@@ -26,6 +26,8 @@ import { Data } from '../types/Data';
 //! Config
 import config from '../config/config';
 let Config = config;
+
+const argv = yargs(process.argv.slice(2)).argv;
 
 //* ----------------------------------------------------------------------------------------
 
@@ -91,12 +93,12 @@ const copy = (src: string, dest: string) => {
 const main = async () => {
   //! CHECK IF LOCAL CONFIG IS PASSED USING THE -c FLAG
   const args = process.argv.slice(2);
-  const configIndex = args.indexOf('-c');
-  const configPath = args[configIndex + 1];
 
-  if (args.includes('-c')) {
+  if (argv.c) {
     //! INSTALL THE NEW CONFIG
-    if (configPath) {
+    if (typeof argv.c === 'string') {
+      const configPath = argv.c;
+
       const absoluteConfigPath = path.resolve(process.cwd(), configPath);
       const normalizedPath = absoluteConfigPath
         .replace(/\\/g, '/')

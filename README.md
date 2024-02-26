@@ -40,7 +40,7 @@ npm create cronos@latest
 - [x] Express
 - [x] Angular
 
-### 📋 Roadmap - 0.1.17
+### 📋 Roadmap
 
 - [ ] Add support for Nuxt
 - [ ] Add support for Rspack
