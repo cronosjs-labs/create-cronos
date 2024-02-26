@@ -13,4 +13,5 @@ templates/*/*.env
 templates/*/*.local
 
 .turbo
+.github
 src/
