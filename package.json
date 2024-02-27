@@ -1,6 +1,6 @@
 {
   "name": "create-cronos",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "description": "Next Generation Fullstack Tooling",
   "repository": {
     "type": "git",
@@ -9,7 +9,7 @@
   "homepage": "cronosjs.dev/",
   "scripts": {
     "ci": "act",
-    "build": "rollup -c",
+    "build": "rollup -c", 
     "install-global": "npm install -g .",
     "build-install": "turbo build install-global",
     "lint": "eslint src --ext .ts",

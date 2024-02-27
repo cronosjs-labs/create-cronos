@@ -1,4 +1,4 @@
-import { expressTSTransform } from 'express-ts-transform';
+import { expressTSTransform } from '../steps/@expressTSTransform';
 import { Config } from '../types/Config';
 
 const config: Config = {
