@@ -283,16 +283,17 @@ const main = async () => {
   } else {
     const name = await prompt('📁 Project name: ');
 
+  
     let templateDir = path.join(currentDir, `../templates/${project.path}`);
 
     if (argv.t) {
-      //console.log('Using template directory: ', argv.t);
+      console.log('Using template directory: ', argv.t);
       // `${avv.t}/${project.path}`
       templateDir = path.join(process.cwd(), argv.t);
       templateDir = path.join(templateDir, project.path);
 
       if (!fs.existsSync(templateDir)) {
-        //console.log(templateDir);
+        console.log(templateDir);
         console.log('Template directory not found');
       }
     }
