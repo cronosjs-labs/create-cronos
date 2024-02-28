@@ -2,6 +2,11 @@
 
 Return to [README.md](../../README.md)
 
+## [0.1.20] - 28/02/2024
+
+### Added
+
+- Now you can change the default templates directory with the `-t` flag to use your own templates.
 
 ## [0.1.19] - 26/02/2024
 

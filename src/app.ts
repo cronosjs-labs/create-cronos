@@ -132,6 +132,8 @@ const main = async () => {
           Config = localConfig.default.default;
 
           console.log('Local config loaded');
+
+          //console.log(argv);
         }
         //! IF THE PASSED CONFIG IS A JAVASCRIPT FILE
         else {
@@ -281,13 +283,26 @@ const main = async () => {
   } else {
     const name = await prompt('📁 Project name: ');
 
-    fs.mkdirSync(name as string);
+    let templateDir = path.join(currentDir, `../templates/${project.path}`);
 
+    if (argv.t) {
+      //console.log('Using template directory: ', argv.t);
+      // `${avv.t}/${project.path}`
+      templateDir = path.join(process.cwd(), argv.t);
+      templateDir = path.join(templateDir, project.path);
+
+      if (!fs.existsSync(templateDir)) {
+        //console.log(templateDir);
+        console.log('Template directory not found');
+      }
+    }
+
+    fs.mkdirSync(name as string);
     process.chdir(name as string);
 
-    const templateDir = path.join(currentDir, `../templates/${project.path}`);
-
     const targetDir = process.cwd();
+
+    //console.log('Process Path:  ', process.cwd());
 
     const write = (file: string, content?: string) => {
       //* Define the target path by joining the target directory and the file name
