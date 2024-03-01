@@ -2,6 +2,12 @@
 
 Return to [README.md](../../README.md)
 
+## [0.1.22] - 01/03/2024
+
+### Added
+
+- Catching local templates to simplify the execution of the project.
+
 ## [0.1.20] - 28/02/2024
 
 ### Added
@@ -25,7 +31,7 @@ Return to [README.md](../../README.md)
 - Local configuration support
 - Rollup as a default bundler
 
-### 
+###
 
 # [0.1.15] - 16/02/2024
 

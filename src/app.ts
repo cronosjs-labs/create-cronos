@@ -2,7 +2,7 @@
 
 //! esm
 import readline from 'readline';
-import fs from 'fs';
+import fs, { WriteStream } from 'fs';
 import yargs, { Argv } from 'yargs';
 import { build } from 'esbuild';
 
@@ -91,6 +91,21 @@ const copy = (src: string, dest: string) => {
 
 //! MAIN
 const main = async () => {
+  //! CACHE TEMPLATES
+  if (!fs.existsSync(homeDir + '/.cronos')) {
+    fs.mkdirSync(homeDir + '/.cronos');
+  }
+
+  if (!fs.existsSync(homeDir + '/.cronos/templates')) {
+    fs.mkdirSync(homeDir + '/.cronos/templates');
+  }
+
+  const templateDir = path.join(currentDir, '../templates');
+
+  const targetDir = path.join(homeDir, '.cronos', 'templates');
+
+  copyDir(templateDir, targetDir);
+
   //! CHECK IF LOCAL CONFIG IS PASSED USING THE -c FLAG
   const args = process.argv.slice(2);
 
@@ -283,18 +298,26 @@ const main = async () => {
   } else {
     const name = await prompt('📁 Project name: ');
 
-  
+    rl.close();
+
     let templateDir = path.join(currentDir, `../templates/${project.path}`);
 
     if (argv.t) {
-      console.log('Using template directory: ', argv.t);
-      // `${avv.t}/${project.path}`
-      templateDir = path.join(process.cwd(), argv.t);
-      templateDir = path.join(templateDir, project.path);
-
-      if (!fs.existsSync(templateDir)) {
-        console.log(templateDir);
-        console.log('Template directory not found');
+      if (typeof argv.t == 'string') {
+        const templatePath = path.resolve(process.cwd(), argv.t);
+        const targetPath = path.resolve(homeDir, '.cronos', 'templates');
+        copyDir(templatePath, targetPath);
+      } else {
+        if (fs.existsSync(homeDir + '/.cronos/templates')) {
+          templateDir = path.join(
+            homeDir,
+            '.cronos',
+            'templates',
+            project.path
+          );
+        } else {
+          console.log('Template not found, using default');
+        }
       }
     }
 
