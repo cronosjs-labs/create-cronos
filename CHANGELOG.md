@@ -2,6 +2,18 @@
 
 Return to [README.md](../../README.md)
 
+## [0.1.24] - 05/03/2024
+
+### Updated
+
+- Part of the code was organized for maintainability
+
+- Remove the `@expressTSTransform.ts` file from the project
+
+### Fixed
+
+- Fixed latency when using an external template
+
 ## [0.1.22] - 01/03/2024
 
 ### Added

@@ -1,6 +1,6 @@
 {
   "name": "create-cronos",
-  "version": "0.1.22",
+  "version": "0.1.24",
   "description": "Next Generation Fullstack Tooling",
   "repository": {
     "type": "git",
@@ -32,12 +32,14 @@
     "@inquirer/checkbox": "^1.4.0",
     "@inquirer/prompts": "^3.3.0",
     "@inquirer/select": "^1.3.0",
+    "cross-spawn": "^7.0.3",
     "esbuild": "0.19.5",
     "express-ts-transform": "^0.0.7",
     "fs-extra": "^11.1.1",
     "inquirer": "^9.2.11",
     "inquirer-autocomplete-standalone": "^0.8.1",
     "node-persist": "^4.0.1",
+    "prompts": "^2.4.2",
     "yargs": "^17.7.2"
   },
   "devDependencies": {

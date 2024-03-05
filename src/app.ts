@@ -2,14 +2,14 @@
 
 //! esm
 import readline from 'readline';
-import fs, { WriteStream } from 'fs';
-import yargs, { Argv } from 'yargs';
+import fs from 'fs';
 import { build } from 'esbuild';
 
 //! commonjs
 const path = require('path');
-const { spawn } = require('child_process');
+const spawn = require('cross-spawn');
 const os = require('os');
+const prompts = require('prompts');
 
 //! VARIABLES
 const currentDir = __dirname;
@@ -17,6 +17,8 @@ const currentDir = __dirname;
 const OS = process.platform;
 
 const homeDir = os.homedir();
+
+import('inquirer-autocomplete-standalone');
 
 //! TYPES
 
@@ -27,60 +29,12 @@ import { Data } from '../types/Data';
 import config from '../config/config';
 let Config = config;
 
-const argv = yargs(process.argv.slice(2)).argv;
+import argv from './argv';
 
 //* ----------------------------------------------------------------------------------------
 
-/**
- * Copies a directory from a source to a destination.
- *
- * @param {string} srcDir - The source directory to copy from.
- * @param {string} destDir - The destination directory to copy to.
- */
-
-const copyDir = (srcDir: string, destDir: string) => {
-  try {
-    fs.mkdirSync(destDir, { recursive: true });
-  } catch (err) {
-    console.log(err);
-  }
-
-  try {
-    for (const file of fs.readdirSync(srcDir)) {
-      const srcFile = path.resolve(srcDir, file);
-      const destFile = path.resolve(destDir, file);
-      copy(srcFile, destFile);
-    }
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-/**
- * Copies a file or a directory from a source to a destination.
- * If the source is a directory, it uses the copyDir function to copy it.
- *
- * @param {string} src - The source file or directory to copy from.
- * @param {string} dest - The destination file or directory to copy to.
- */
-
-const copy = (src: string, dest: string) => {
-  const stat = fs.statSync(src);
-  if (stat.isDirectory()) {
-    copyDir(src, dest);
-  } else {
-    try {
-      if (src.includes('_gitignore')) {
-        const newDest = dest.replace('_', '.');
-        fs.copyFileSync(src, newDest);
-      } else {
-        fs.copyFileSync(src, dest);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }
-};
+import { copy, copyDir } from './functions/copy';
+import InitCache from './cache';
 
 /**
  * This function logs a success message to the console after a project has been created successfully.
@@ -92,22 +46,7 @@ const copy = (src: string, dest: string) => {
 //! MAIN
 const main = async () => {
   //! CACHE TEMPLATES
-  if (!fs.existsSync(homeDir + '/.cronos')) {
-    fs.mkdirSync(homeDir + '/.cronos');
-  }
-
-  if (!fs.existsSync(homeDir + '/.cronos/templates')) {
-    fs.mkdirSync(homeDir + '/.cronos/templates');
-  }
-
-  const templateDir = path.join(currentDir, '../templates');
-
-  const targetDir = path.join(homeDir, '.cronos', 'templates');
-
-  copyDir(templateDir, targetDir);
-
-  //! CHECK IF LOCAL CONFIG IS PASSED USING THE -c FLAG
-  const args = process.argv.slice(2);
+  InitCache();
 
   if (argv.c) {
     //! INSTALL THE NEW CONFIG
@@ -208,9 +147,8 @@ const main = async () => {
   const techChoices: { name: string; value: string } | any =
     Config.projects.map((project) => {
       return {
-        name: project.name,
-        value: project.value,
-        description: project.description ? project.description : project.name
+        title: project.name,
+        value: project.value
       };
     });
 
@@ -221,29 +159,14 @@ const main = async () => {
   }
 
   //! TECH SELECT
-
-  const { default: autocomplete, Separator } = await import(
-    'inquirer-autocomplete-standalone'
-  );
-
-  let tech = await autocomplete({
+  let tech = await prompts({
+    type: 'autocomplete',
+    name: 'value',
     message: '💻 Select a technology:',
-    source: async (input) => {
-      let filteredCountries = techChoices.filter((tech) => {
-        return tech.name.toLowerCase().includes(input?.toLowerCase());
-      });
-
-      if (!input) return techChoices;
-
-      return filteredCountries.map((tech) => {
-        return {
-          value: tech.value,
-          name: `\x1b[0m${tech.name}`,
-          description: tech.description
-        };
-      });
-    }
+    choices: techChoices
   });
+
+  tech = tech.value;
 
   //! CLONE REPO
 
@@ -277,24 +200,18 @@ const main = async () => {
         ? [project.execCommand]
         : project.execCommand;
 
-    let createApp;
-
     if (
       Config.projects.find((p) => p.value === tech)?.create === false ||
       !project.create
     ) {
-      createApp = spawn(npx, execCommand, {
+      spawn.sync(npx, execCommand, {
         stdio: 'inherit'
       });
     } else {
-      createApp = spawn(npm, ['create', execCommand], {
+      spawn.sync(npm, ['create', execCommand], {
         stdio: 'inherit'
       });
     }
-
-    await new Promise((resolve) => {
-      createApp.on('exit', resolve);
-    });
   } else {
     const name = await prompt('📁 Project name: ');
 
@@ -302,22 +219,18 @@ const main = async () => {
 
     let templateDir = path.join(currentDir, `../templates/${project.path}`);
 
-    if (argv.t) {
-      if (typeof argv.t == 'string') {
-        const templatePath = path.resolve(process.cwd(), argv.t);
-        const targetPath = path.resolve(homeDir, '.cronos', 'templates');
-        copyDir(templatePath, targetPath);
+    if (
+      typeof argv.t !== 'string' &&
+      typeof argv.c !== 'string' &&
+      typeof argv.t !== null &&
+      typeof argv.c !== null &&
+      typeof argv.t !== undefined &&
+      typeof argv.c !== undefined
+    ) {
+      if (fs.existsSync(homeDir + '/.cronos/templates')) {
+        templateDir = path.join(homeDir, '.cronos', 'templates', project.path);
       } else {
-        if (fs.existsSync(homeDir + '/.cronos/templates')) {
-          templateDir = path.join(
-            homeDir,
-            '.cronos',
-            'templates',
-            project.path
-          );
-        } else {
-          console.log('Template not found, using default');
-        }
+        console.log('Template not found, using default');
       }
     }
 
@@ -325,8 +238,6 @@ const main = async () => {
     process.chdir(name as string);
 
     const targetDir = process.cwd();
-
-    //console.log('Process Path:  ', process.cwd());
 
     const write = (file: string, content?: string) => {
       //* Define the target path by joining the target directory and the file name
