@@ -219,14 +219,7 @@ const main = async () => {
 
     let templateDir = path.join(currentDir, `../templates/${project.path}`);
 
-    if (
-      typeof argv.t !== 'string' &&
-      typeof argv.c !== 'string' &&
-      typeof argv.t !== null &&
-      typeof argv.c !== null &&
-      typeof argv.t !== undefined &&
-      typeof argv.c !== undefined
-    ) {
+    if (typeof argv.t === 'string') {
       if (fs.existsSync(homeDir + '/.cronos/templates')) {
         templateDir = path.join(homeDir, '.cronos', 'templates', project.path);
       } else {

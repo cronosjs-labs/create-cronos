@@ -1,6 +1,6 @@
 {
   "name": "create-cronos",
-  "version": "0.1.24",
+  "version": "0.1.25",
   "description": "Next Generation Fullstack Tooling",
   "repository": {
     "type": "git",
@@ -43,6 +43,7 @@
     "yargs": "^17.7.2"
   },
   "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/yargs": "^17.0.32",
     "@typescript-eslint/eslint-plugin": "^6.12.0",

@@ -4,26 +4,37 @@ import path from 'path';
 
 import { copyDir } from './functions/copy';
 
-const currentDir = __dirname;
-
 const homeDir = os.homedir();
 
 import argv from './argv';
 
-const InitCache = () => {
+const cwd = process.cwd();
 
-  if (typeof argv.c === 'string' && typeof argv.t === 'string') {
+const InitCache = () => {
+  if (typeof argv.c === 'string') {
     if (!fs.existsSync(homeDir + '/.cronos')) {
       fs.mkdirSync(homeDir + '/.cronos');
     }
+  }
 
+  if (typeof argv.t === 'string') {
     if (!fs.existsSync(homeDir + '/.cronos/templates')) {
       fs.mkdirSync(homeDir + '/.cronos/templates');
     }
 
-    const templateDir = path.join(currentDir, '../templates');
+    if (!fs.existsSync(cwd + '/' + argv.t)) {
+      console.log('The template directory does not exist.');
+      process.exit(1);
+    }
+
+    const templateDir = path.join(cwd, argv.t);
 
     const targetDir = path.join(homeDir, '.cronos', 'templates');
+
+    if (fs.existsSync(path.join(targetDir, argv.t))) {
+      console.log('Template already exists.');
+      return;
+    }
 
     copyDir(templateDir, targetDir);
   }

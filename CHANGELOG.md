@@ -2,6 +2,12 @@
 
 Return to [README.md](../../README.md)
 
+## [0.1.25] - /03/2024
+
+### Added
+
+- Added @rollup/plugin-terser to generate a minified bundle and reduce the final size of the project.
+
 ## [0.1.24] - 05/03/2024
 
 ### Updated

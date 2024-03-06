@@ -1,5 +1,6 @@
 // rollup.config.js
 import typescript from '@rollup/plugin-typescript';
+import terser from '@rollup/plugin-terser';
 
 export default {
   input: 'src/app.ts',
@@ -7,5 +8,5 @@ export default {
     file: 'bin/app.js',
     format: 'cjs'
   },
-  plugins: [typescript()]
+  plugins: [typescript(), terser()]
 };
