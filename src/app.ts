@@ -147,8 +147,9 @@ const main = async () => {
   const techChoices: { name: string; value: string } | any =
     Config.projects.map((project) => {
       return {
-        title: project.name,
-        value: project.value
+        name: project.name,
+        value: project.value,
+        description: project.description ? project.description : project.name
       };
     });
 
@@ -158,26 +159,31 @@ const main = async () => {
     await step();
   }
 
-  console.log(techChoices);
-
   // process.exit();
 
   //! TECH SELECT
-  let tech = await prompts({
-    type: 'autocomplete',
-    name: 'name',
-    suggest: (input, choices) => {
-      return choices.filter(
-        (choice) =>
-          choice.title.toLowerCase().includes(input.toLowerCase()) ||
-          choice.value.toLowerCase().includes(input.toLowerCase())
-      );
-    },
-    message: '💻 Select a technology:',
-    choices: techChoices
-  });
+  const { default: autocomplete, Separator } = await import(
+    'inquirer-autocomplete-standalone'
+  );
 
-  tech = tech.value;
+  let tech = await autocomplete({
+    message: '💻 Select a technology:',
+    source: async (input) => {
+      let filteredCountries = techChoices.filter((tech) => {
+        return tech.name.toLowerCase().includes(input?.toLowerCase());
+      });
+
+      if (!input) return techChoices;
+
+      return filteredCountries.map((tech) => {
+        return {
+          value: tech.value,
+          name: `\x1b[0m${tech.name}`,
+          description: tech.description
+        };
+      });
+    }
+  });
 
   //! CLONE REPO
 
