@@ -158,10 +158,21 @@ const main = async () => {
     await step();
   }
 
+  console.log(techChoices);
+
+  // process.exit();
+
   //! TECH SELECT
   let tech = await prompts({
     type: 'autocomplete',
-    name: 'value',
+    name: 'name',
+    suggest: (input, choices) => {
+      return choices.filter(
+        (choice) =>
+          choice.title.toLowerCase().includes(input.toLowerCase()) ||
+          choice.value.toLowerCase().includes(input.toLowerCase())
+      );
+    },
     message: '💻 Select a technology:',
     choices: techChoices
   });
