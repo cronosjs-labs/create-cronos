@@ -28,8 +28,14 @@ import { Data } from '../types/Data';
 //! Config
 import config from '../config/config';
 let Config = config;
+import yargs from 'yargs';
 
-import argv from './argv';
+const argv = yargs(process.argv.slice(2))
+  .options({
+    t: { type: 'string', alias: 't' },
+    c: { type: 'string', alias: 'c' }
+  })
+  .parseSync();
 
 //* ----------------------------------------------------------------------------------------
 
@@ -48,9 +54,9 @@ const main = async () => {
   //! CACHE TEMPLATES
   InitCache();
 
-  if (argv.c) {
+  if (typeof argv.c === 'string') {
     //! INSTALL THE NEW CONFIG
-    if (typeof argv.c === 'string') {
+    if (argv.c.length > 0) {
       const configPath = argv.c;
 
       const absoluteConfigPath = path.resolve(process.cwd(), configPath);
@@ -163,9 +169,8 @@ const main = async () => {
     type: 'autocomplete',
     name: 'value',
     suggest: (input) => {
-
       console.log(input);
-      
+
       let filteredCountries = techChoices.filter((tech) => {
         return tech.title.toLowerCase().includes(input?.toLowerCase());
       });
@@ -175,7 +180,7 @@ const main = async () => {
       return filteredCountries.map((tech) => {
         return {
           value: tech.value,
-          title: `\x1b[0m${tech.title}`,
+          title: `\x1b[0m${tech.title}`
         };
       });
     },

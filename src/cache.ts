@@ -17,7 +17,7 @@ const InitCache = () => {
     }
   }
 
-  if (typeof argv.t === 'string') {
+  if (typeof argv.t === 'string' && argv.t.length > 0) {
     if (!fs.existsSync(homeDir + '/.cronos/templates')) {
       fs.mkdirSync(homeDir + '/.cronos/templates');
     }
