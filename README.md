@@ -20,11 +20,11 @@ npm create cronos@latest
 > [!IMPORTANT]
 > The following templates are manteined in the Create Cronos project.
 
-  - Express ( `./templates/express` )
-    - [x] Unit tests with Vitest
-    - [x] Nodemon to watch changes
-    - [x] Eslint and Prettier
-    - [x] Typescript support
+- Express ( `./templates/express` )
+  - [x] Unit tests with Vitest
+  - [x] Nodemon to watch changes
+  - [x] Eslint and Prettier
+  - [x] Typescript support
 
 ### 📦 Supported technologies
 
@@ -47,11 +47,13 @@ npm create cronos@latest
 - [ ] Add support for Rspack
 - [ ] Add support for React Native
 
-### 📚 API
+### ⭐ Custom Project Generator
 
-Generate your `own project generator` adapted to the needs of your organization in record time using the `Create Cronos API`. You can find the documentation at [cronosjs.dev](https://cronosjs.dev/).
+Generate your `own project generator` adapted to the needs of your organization in record time. You can find the documentation at [cronosjs.dev](https://cronosjs.dev/).
 
-### 🎉 Thanks to the contributors of this project
+### 📄 Thanks to the contributors of this project, read the `CONTRIBUTING.md` file if you are interested in contributing.
+
+#### Honorable mentions:
 
 - [@LZeth](https://github.com/LZeth) for the logo design.
 
@@ -61,7 +63,7 @@ And all the people that have contributed to this project.
 
 See the [CHANGELOG](CHANGELOG.md) file for details about the changes made in each version of the project.
 
-### 
+###
 
 ---
 
@@ -74,4 +76,3 @@ See the [CHANGELOG](CHANGELOG.md) file for details about the changes made in eac
 </div>
 
 ---
-

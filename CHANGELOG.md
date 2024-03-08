@@ -2,6 +2,16 @@
 
 Return to [README.md](../../README.md)
 
+## [0.1.29] - 29/03/2024
+
+### Fixed
+
+-c -t flags were fixed to work properly.
+
+### Added
+
+Custom project generator example was added to the project.
+
 ## [0.1.25] - /03/2024
 
 ### Added
