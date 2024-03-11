@@ -49,6 +49,9 @@ npm create cronos@latest
 
 ### ⭐ Custom Project Generator
 
+> [!TIP]
+> Check `examples` folder to see examples of custom project generators using Create Cronos.
+
 Generate your `own project generator` adapted to the needs of your organization in record time. You can find the documentation at [cronosjs.dev](https://cronosjs.dev/).
 
 ### 📄 Thanks to the contributors of this project, read the `CONTRIBUTING.md` file if you are interested in contributing.
@@ -58,6 +61,10 @@ Generate your `own project generator` adapted to the needs of your organization 
 - [@LZeth](https://github.com/LZeth) for the logo design.
 
 And all the people that have contributed to this project.
+
+### 🚧 Issues and feature requests
+
+If you have any issues or feature requests, please open an issue in the [issues](https://github.com/cronosjs-labs/create-cronos/issues) section of this repository. Befree to contribute to the project, check the `CONTRIBUTING.md` file for more information.
 
 ### 📜 Changelog
 
