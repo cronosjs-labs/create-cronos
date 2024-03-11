@@ -169,8 +169,6 @@ const main = async () => {
     type: 'autocomplete',
     name: 'value',
     suggest: (input) => {
-      console.log(input);
-
       let filteredCountries = techChoices.filter((tech) => {
         return tech.title.toLowerCase().includes(input?.toLowerCase());
       });

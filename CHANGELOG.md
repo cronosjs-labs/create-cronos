@@ -2,6 +2,12 @@
 
 Return to [README.md](../../README.md)
 
+## [0.2.0] - 11/03/2024
+
+### Fixed
+
+Multiselect search engine was fixed to work properly.
+
 ## [0.1.29] - 08/03/2024
 
 ### Fixed
