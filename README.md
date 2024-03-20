@@ -7,13 +7,19 @@
 
 [![npm](https://img.shields.io/npm/v/create-cronos?color=green&label=Create%20Cronos&style=for-the-badge)](https://www.npmjs.com/package/create-cronos)
 
+![Create Cronos](./example.png)
+
 </div>
+
+
 
 ### ⚡ Quick start
 
 ```bash
 npm create cronos@latest
 ```
+
+
 
 ### 🚀 Manteined templates
 
