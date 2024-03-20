@@ -8,12 +8,12 @@
   
 <div>
 
-<img alt="NPM Version" src="https://img.shields.io/npm/v/create-cronos?color=green&label=Create%20Cronos&style=for-the-badge">
+<img alt="NPM Version" src="https://img.shields.io/npm/v/create-cronos?color=cyan&label=Create%20Cronos&style=for-the-badge">
 
-<img alt="NPM Downloads" src="https://img.shields.io/npm/dt/create-cronos?color=green&label=Create%20Cronos&style=for-the-badge">
+<img alt="NPM Downloads" src="https://img.shields.io/npm/dt/create-cronos?color=cyan&label=Create%20Cronos&style=for-the-badge">
 
 
-<img alt="NPM License" src="https://img.shields.io/npm/l/create-cronos?color=green&label=Create%20Cronos&style=for-the-badge">
+<img alt="NPM License" src="https://img.shields.io/npm/l/create-cronos?color=cyan&label=Create%20Cronos&style=for-the-badge">
 
 </div>
 
