@@ -2,12 +2,23 @@
   
 # **CREATE CRONOS**
 
-<img alt="Create Cronos" src="./example.png" />
-
 ### Generate a project with Vite, Express, Tauri, Next.js, Astro and other technologies with a single command.
 
-[![npm](https://img.shields.io/npm/v/create-cronos?color=green&label=Create%20Cronos&style=for-the-badge)](https://www.npmjs.com/package/create-cronos)
+<div align="center">
+  
+<div>
 
+<img alt="NPM Version" src="https://img.shields.io/npm/v/create-cronos?color=green&label=Create%20Cronos&style=for-the-badge">
+
+<img alt="NPM Downloads" src="https://img.shields.io/npm/dt/create-cronos?color=green&label=Create%20Cronos&style=for-the-badge">
+
+
+<img alt="NPM License" src="https://img.shields.io/npm/l/create-cronos?color=green&label=Create%20Cronos&style=for-the-badge">
+
+</div>
+
+<img alt="Create Cronos" src="./example.png" />
+</div>
 
 </div>
 
