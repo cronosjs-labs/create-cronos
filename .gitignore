@@ -13,3 +13,4 @@ templates/*/*.local
 bin/
 
 .turbo
+*.tgz
