@@ -33,7 +33,8 @@ import yargs from 'yargs';
 const argv = yargs(process.argv.slice(2))
   .options({
     t: { type: 'string', alias: 't' },
-    c: { type: 'string', alias: 'c' }
+    c: { type: 'string', alias: 'c' },
+    p: { type: 'string', alias: 'p' }
   })
   .parseSync();
 
@@ -150,6 +151,7 @@ const main = async () => {
     console.log('\x1b[33m────────────────────────────\x1b[37m');
   }
 
+
   const techChoices: { name: string; value: string } | any =
     Config.projects.map((project) => {
       return {
@@ -165,6 +167,7 @@ const main = async () => {
   }
 
   //! TECH SELECT
+
   let tech = await prompts({
     type: 'autocomplete',
     name: 'value',
