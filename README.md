@@ -1,13 +1,13 @@
 <div align="center">
-<p><img alt="CRONOS" style="max-width:70%; min-width:70px;" src="./docs/public/cronos.png" /></p>
+  
+# **CREATE CRONOS**
 
-# **_CREATE CRONOS_**
+<img alt="Create Cronos" src="./example.png" />
 
 ### Generate a project with Vite, Express, Tauri, Next.js, Astro and other technologies with a single command.
 
 [![npm](https://img.shields.io/npm/v/create-cronos?color=green&label=Create%20Cronos&style=for-the-badge)](https://www.npmjs.com/package/create-cronos)
 
-![Create Cronos](./example.png)
 
 </div>
 
