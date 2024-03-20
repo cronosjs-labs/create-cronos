@@ -14,5 +14,6 @@ templates/*/*.local
 
 .turbo
 .github
+*.tgz
 
 examples/
