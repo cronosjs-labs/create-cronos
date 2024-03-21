@@ -32,15 +32,15 @@ npm create cronos@latest
 > [!NOTE]
 > When you create a project with Create Cronos, you can choose the technology you want to use. The following technologies are supported by default.
 
-- [x] Vite
-- [x] Tauri
-- [x] Vitepress
-- [x] Astro
-- [x] Starlight
-- [x] Next.js
-- [x] Hono
-- [x] Express
-- [x] Angular
+- ✅ Vite
+- ✅ Tauri
+- ✅ Vitepress
+- ✅ Astro
+- ✅ Starlight
+- ✅ Next.js
+- ✅ Hono
+- ✅ Express
+- ✅ Angular
 
 
 ### 🚀 Manteined templates
@@ -49,10 +49,10 @@ npm create cronos@latest
 > The following templates are manteined in the Create Cronos project.
 
 - Express ( `./templates/express` )
-  - [x] Unit tests with Vitest
-  - [x] Nodemon to watch changes
-  - [x] Eslint and Prettier
-  - [x] Typescript support
+  - ✅ Unit tests with Vitest
+  - ✅ Nodemon to watch changes
+  - ✅ Eslint and Prettier
+  - ✅ Typescript support
 
 ### 📋 Roadmap
 
@@ -66,14 +66,6 @@ npm create cronos@latest
 > Check `examples` folder to see examples of custom project generators using Create Cronos.
 
 Generate your `own project generator` adapted to the needs of your organization in record time. You can find the documentation at [cronosjs.dev](https://cronosjs.dev/).
-
-### 📄 Thanks to the contributors of this project, read the `CONTRIBUTING.md` file if you are interested in contributing.
-
-#### Honorable mentions:
-
-- [@LZeth](https://github.com/LZeth) for the logo design.
-
-And all the people that have contributed to this project.
 
 ### 🚧 Issues and feature requests
 
