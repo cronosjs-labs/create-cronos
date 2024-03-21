@@ -22,7 +22,6 @@
     "create-cronos": "./bin/app.js"
   },
   "keywords": [
-    "cronos",
     "create-cronos",
     "project generator"
   ],
