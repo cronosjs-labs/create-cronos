@@ -151,7 +151,6 @@ const main = async () => {
     console.log('\x1b[33m────────────────────────────\x1b[37m');
   }
 
-
   const techChoices: { name: string; value: string } | any =
     Config.projects.map((project) => {
       return {
@@ -168,28 +167,34 @@ const main = async () => {
 
   //! TECH SELECT
 
-  let tech = await prompts({
-    type: 'autocomplete',
-    name: 'value',
-    suggest: (input) => {
-      let filteredCountries = techChoices.filter((tech) => {
-        return tech.title.toLowerCase().includes(input?.toLowerCase());
-      });
+  let tech;
 
-      if (!input) return techChoices;
+  if (argv.p && (argv.p as string).length > 0) {
+    tech = argv.p;
+  } else {
+    tech = await prompts({
+      type: 'autocomplete',
+      name: 'value',
+      suggest: (input) => {
+        let filteredCountries = techChoices.filter((tech) => {
+          return tech.title.toLowerCase().includes(input?.toLowerCase());
+        });
 
-      return filteredCountries.map((tech) => {
-        return {
-          value: tech.value,
-          title: `\x1b[0m${tech.title}`
-        };
-      });
-    },
-    message: '💻 Select a technology:',
-    choices: techChoices
-  });
+        if (!input) return techChoices;
 
-  tech = tech.value;
+        return filteredCountries.map((tech) => {
+          return {
+            value: tech.value,
+            title: `\x1b[0m${tech.title}`
+          };
+        });
+      },
+      message: '💻 Select a technology:',
+      choices: techChoices
+    });
+
+    tech = tech.value;
+  }
 
   //! CLONE REPO
 
