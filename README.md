@@ -12,7 +12,6 @@
 
 <img alt="NPM Downloads" src="https://img.shields.io/npm/dt/create-cronos?color=cyan&label=Create%20Cronos&style=for-the-badge">
 
-
 <img alt="NPM License" src="https://img.shields.io/npm/l/create-cronos?color=cyan&label=Create%20Cronos&style=for-the-badge">
 
 </div>
@@ -22,26 +21,11 @@
 
 </div>
 
-
-
 ### ⚡ Quick start
 
 ```bash
 npm create cronos@latest
 ```
-
-
-
-### 🚀 Manteined templates
-
-> [!IMPORTANT]
-> The following templates are manteined in the Create Cronos project.
-
-- Express ( `./templates/express` )
-  - [x] Unit tests with Vitest
-  - [x] Nodemon to watch changes
-  - [x] Eslint and Prettier
-  - [x] Typescript support
 
 ### 📦 Supported technologies
 
@@ -57,6 +41,18 @@ npm create cronos@latest
 - [x] Hono
 - [x] Express
 - [x] Angular
+
+
+### 🚀 Manteined templates
+
+> [!IMPORTANT]
+> The following templates are manteined in the Create Cronos project.
+
+- Express ( `./templates/express` )
+  - [x] Unit tests with Vitest
+  - [x] Nodemon to watch changes
+  - [x] Eslint and Prettier
+  - [x] Typescript support
 
 ### 📋 Roadmap
 
