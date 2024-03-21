@@ -2,6 +2,12 @@
 
 Return to [README.md](../../README.md)
 
+## [0.2.3] - 20/03/2024
+
+### Added
+
+Flag to specify the project to generate (-p) closed (#2)
+
 ## [0.2.0] - 11/03/2024
 
 ### Fixed
