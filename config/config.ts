@@ -28,13 +28,7 @@ const config: Config = {
       execCommand: 'create-vite@latest',
       steps: []
     },
-    {
-      name: '\x1b[1m\x1b[35mVitepress ↗\x1b[37m\x1b[0m',
-      value: 'vitepress',
-      type: 'external',
-      execCommand: ['vitepress', 'init'],
-      steps: []
-    },
+
     {
       name: '\x1b[1m\x1b[33mAstro ↗\x1b[37m\x1b[0m',
       value: 'astro',
@@ -42,25 +36,12 @@ const config: Config = {
       execCommand: 'create-astro@latest',
       steps: []
     },
-    {
-      name: '\x1b[1m\x1b[33mStarlight ↗\x1b[37m\x1b[0m',
-      value: 'starlight',
-      type: 'external',
-      execCommand: ['create-astro@latest', '--template', 'starlight'],
-      steps: []
-    },
+
     {
       name: '\x1b[1m\x1b[37mNext.js ↗\x1b[37m\x1b[0m',
       value: 'next',
       type: 'external',
       execCommand: 'create-next-app@latest',
-      steps: []
-    },
-    {
-      name: '\x1b[1m\x1b[31mHono ↗\x1b[37m\x1b[0m',
-      value: 'hono',
-      type: 'external',
-      execCommand: 'create-hono@latest',
       steps: []
     },
     {
@@ -87,7 +68,7 @@ const config: Config = {
         () => {
           console.log('Creating a new Express project with Typescript');
         },
-        expressTSTransform,
+        () => expressTSTransform(process.cwd()),
         () =>
           console.log(`
           To get started:
@@ -97,6 +78,30 @@ const config: Config = {
         `)
       ]
     },
+    {
+      name: '\x1b[1m\x1b[31mHono ↗\x1b[37m\x1b[0m',
+      value: 'hono',
+      type: 'external',
+      execCommand: 'create-hono@latest',
+      steps: []
+    },
+    {
+      name: '\x1b[1m\x1b[36mRsbuild ↗\x1b[37m\x1b[0m',
+      value: 'rsbuild',
+      type: 'external',
+      execCommand: ['rsbuild@latest'],
+      create: true,
+      steps: []
+    },
+    {
+      name: '\x1b[1m\x1b[31mRspack ↗\x1b[37m\x1b[0m',
+      value: 'rspack',
+      type: 'external',
+      execCommand: ['rspack@latest'],
+      create: true,
+      steps: []
+    },
+
     {
       name: '\x1b[1m\x1b[32mAngular ↗\x1b[37m\x1b[0m',
       value: 'angular',
@@ -119,7 +124,21 @@ const config: Config = {
       execCommand: ['qwik@latest'],
       create: true,
       steps: []
-    }
+    },
+    {
+      name: '\x1b[1m\x1b[35mVitepress ↗\x1b[37m\x1b[0m',
+      value: 'vitepress',
+      type: 'external',
+      execCommand: ['vitepress', 'init'],
+      steps: []
+    },
+    {
+      name: '\x1b[1m\x1b[33mStarlight ↗\x1b[37m\x1b[0m',
+      value: 'starlight',
+      type: 'external',
+      execCommand: ['create-astro@latest', '--template', 'starlight'],
+      steps: []
+    },
   ],
   initializer: () => {
     return [() => console.log("🚀 Let's go! 🚀")];

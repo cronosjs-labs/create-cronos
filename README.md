@@ -41,7 +41,8 @@ npm create cronos@latest
 - ✅ Hono
 - ✅ Express
 - ✅ Angular
-
+- ✅ Rsbuild
+- ✅ Rspack
 
 ### 🚀 Manteined templates
 
@@ -57,7 +58,6 @@ npm create cronos@latest
 ### 📋 Roadmap
 
 - [ ] Add support for Nuxt
-- [ ] Add support for Rspack
 - [ ] Add support for React Native
 
 ### ⭐ Custom Project Generator

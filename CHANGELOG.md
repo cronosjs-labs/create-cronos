@@ -2,6 +2,17 @@
 
 Return to [README.md](../../README.md)
 
+## [0.2.4] - 22/03/2024
+
+### Added
+
+Rsbuild support
+Rspack support
+
+### Updated
+
+express-ts-transform to 0.0.11 version
+
 ## [0.2.3] - 20/03/2024
 
 ### Added
