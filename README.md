@@ -44,10 +44,10 @@ npm create cronos@latest
 - ✅ Rsbuild
 - ✅ Rspack
 
-### 🚀 Manteined templates
+### 🚀 Maintained templates
 
 > [!IMPORTANT]
-> The following templates are manteined in the Create Cronos project.
+> The following templates are maintained in the Create Cronos project.
 
 - Express ( `./templates/express` )
   - ✅ Unit tests with Vitest
