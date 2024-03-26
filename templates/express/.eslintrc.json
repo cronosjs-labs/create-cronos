@@ -1,6 +1,10 @@
 {
   "extends": "eslint:recommended",
   "rules": {
-    "linebreak-style": 0
+    "linebreak-style": 0,
+    "semi": [
+      "error",
+      "never"
+    ]
   }
 }
