@@ -13,7 +13,10 @@ const updatePackageJSON = (folderPath: string) => {
     packageJson.scripts.dev = "nodemon --exec ts-node src/index.ts";
     packageJson.scripts.build = "tsc";
     packageJson.scripts.start = "node dist/index.js";
-
+    packageJson.scripts.lint = "eslint -c .eslintrc.json ./src --ext .ts";
+    packageJson.scripts["lint:fix"] = "eslint -c .eslintrc.json ./src --ext .ts --fix";
+    packageJson.scripts.format = "prettier --write \"src/**/*.ts\"";
+    
     //! Typescript types
     packageJson.dependencies["@types/express"] = "latest";
     packageJson.dependencies["@types/supertest"] = "latest";
