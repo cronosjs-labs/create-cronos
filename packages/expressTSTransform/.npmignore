@@ -1,0 +1,6 @@
+.turbo
+build/
+node_modules/
+src/
+test
+ignore
