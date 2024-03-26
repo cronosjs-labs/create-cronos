@@ -6,7 +6,7 @@ const addReqResTypes = (filePath: string) => {
     const regex = /(req, res)/g;
     let newData = data.replace(regex, "req: Request, res: Response");
 
-    const importStatement = `import { Request, Response } from 'express';\n`;
+    const importStatement = `import { Request, Response } from 'express'\n`;
 
     if (regex.test(data)) {
         fs.writeFileSync(filePath, importStatement + newData);
