@@ -9,6 +9,7 @@ import updatePackageJSON from "./functions/updatePackageJSON";
 import changeFileExtension from "./functions/changeFIleExtension";
 import removeJSFromImport from "./functions/removeJSFromImport";
 import addReqResTypes from "./functions/addReqResTypes";
+import updateTest from './functions/updateTest';
 
 const expressTSTransform = (pathToTransform: string) => {
 
@@ -49,6 +50,9 @@ const expressTSTransform = (pathToTransform: string) => {
 
     //! Change file extension
     changeFileExtension(filePath);
+
+    //! Update test files to fix type errors
+    updateTest(filePath);
 
   });
 
