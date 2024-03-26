@@ -1,6 +1,6 @@
 {
   "name": "express-ts-transform",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "author": "Erick Medel",
   "scripts": {
     "_bundle": "rollup -c",
