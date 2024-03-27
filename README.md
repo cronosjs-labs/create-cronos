@@ -75,16 +75,6 @@ If you have any issues or feature requests, please open an issue in the [issues]
 
 See the [CHANGELOG](CHANGELOG.md) file for details about the changes made in each version of the project.
 
-###
+### 📄 License
 
----
-
-<div align="center">
-  
-  ## 📝 License
-  
-  # MIT
-  
-</div>
-
----
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
