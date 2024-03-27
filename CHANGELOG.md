@@ -2,6 +2,16 @@
 
 Return to [README.md](../../README.md)
 
+# [0.2.5] - 26/03/2024
+
+### Added
+
+packages/folder to store managed packages related to the project, such as `express-ts-transform`.
+
+### Fixed
+
+tsc error when transpiling the express project (express-ts-transform was updated to 0.0.13 version).
+
 ## [0.2.4] - 22/03/2024
 
 ### Added
