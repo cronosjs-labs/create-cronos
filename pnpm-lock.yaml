@@ -21,8 +21,8 @@ dependencies:
     specifier: 0.20.2
     version: 0.20.2
   express-ts-transform:
-    specifier: ^0.0.11
-    version: 0.0.11
+    specifier: ^0.0.13
+    version: 0.0.13
   fs-extra:
     specifier: ^11.1.1
     version: 11.2.0
@@ -1271,8 +1271,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /express-ts-transform@0.0.11:
-    resolution: {integrity: sha512-YUY1rBivhbQh2OPp0jIFx1P6+NVQMdUvLfWEtLFFhRMA1XOWn0YBR1Kob0kRUB6vD9A4jA0Lx00OYs8zAbAj2g==}
+  /express-ts-transform@0.0.13:
+    resolution: {integrity: sha512-fE3Bm0Y2jq68bn5pDf4gBA6d4u9z3vnugaMvFRbQjVAOWcmOeREq7E3QhcdyUMfs6CGWD5L2kPu7XKG0nJ5u8A==}
     dependencies:
       fs-extra: 11.2.0
       yargs: 17.7.2
