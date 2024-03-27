@@ -1,5 +1,5 @@
 import { test, beforeEach, afterEach } from 'vitest'
-import { app } from './root.js'
+import { app } from '../src/root.js'
 
 import request from 'supertest'
 
