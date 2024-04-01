@@ -2,6 +2,12 @@
 
 Return to [README.md](../../README.md)
 
+# [0.2.6] - 31/03/2024
+
+### Updated
+
+Bump express from 4.18.2 to 4.19.2 in /templates/express
+
 # [0.2.5] - 26/03/2024
 
 ### Added
