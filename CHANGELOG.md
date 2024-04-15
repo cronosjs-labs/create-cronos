@@ -2,6 +2,16 @@
 
 Return to [README.md](../../README.md)
 
+# [0.2.7] - 15/04/2024
+
+### Add
+
+customTemplateDir property to the API to set the config dir path using the config file
+
+### Remove 
+
+Unused depdendencies
+
 # [0.2.6] - 31/03/2024
 
 ### Updated

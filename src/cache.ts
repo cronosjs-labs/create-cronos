@@ -8,6 +8,8 @@ const homeDir = os.homedir();
 
 import argv from './argv';
 
+import config from '../config/config';
+
 const cwd = process.cwd();
 
 const InitCache = () => {
@@ -32,6 +34,28 @@ const InitCache = () => {
     const targetDir = path.join(homeDir, '.cronos', 'templates');
 
     if (fs.existsSync(path.join(targetDir, argv.t))) {
+      console.log('Template already exists.');
+      return;
+    }
+
+    copyDir(templateDir, targetDir);
+  }
+
+  if (config.customTemplateDir) {
+    if (!fs.existsSync(homeDir + '/.cronos/templates')) {
+      fs.mkdirSync(homeDir + '/.cronos/templates');
+    }
+
+    if (!fs.existsSync(cwd + '/' + config.customTemplateDir)) {
+      console.log('The template directory does not exist.');
+      process.exit(1);
+    }
+
+    const templateDir = path.join(cwd, config.customTemplateDir);
+
+    const targetDir = path.join(homeDir, '.cronos', 'templates');
+
+    if (fs.existsSync(path.join(targetDir, config.customTemplateDir))) {
       console.log('Template already exists.');
       return;
     }

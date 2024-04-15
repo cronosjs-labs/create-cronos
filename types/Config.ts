@@ -6,6 +6,7 @@ interface Config {
   projects: Project[];
   initializer: Middleware;
   finalizer: Middleware;
+  customTemplateDir?: string;
 }
 
 export { Config };

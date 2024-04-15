@@ -247,7 +247,7 @@ const main = async () => {
 
     let templateDir = path.join(currentDir, `../templates/${project.path}`);
 
-    if (typeof argv.t === 'string') {
+    if (typeof argv.t === 'string' || Config.customTemplateDir) {
       if (fs.existsSync(homeDir + '/.cronos/templates')) {
         templateDir = path.join(homeDir, '.cronos', 'templates', project.path);
       } else {

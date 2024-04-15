@@ -1,7 +1,7 @@
-import { expressTSTransform } from 'express-ts-transform';
 import { Config } from '../types/Config';
 
 const config: Config = {
+  customTemplateDir: 'myCustomTemplatesDir',
   banner: () => {
     console.clear();
 
