@@ -194,7 +194,7 @@ const main = async () => {
         }
 
         //! DEFAULT LIMIT
-        else return 10;
+        return 10;
       },
       suggest: (input) => {
         let filteredCountries = techChoices.filter((tech) => {
