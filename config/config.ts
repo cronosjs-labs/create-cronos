@@ -2,6 +2,7 @@ import { expressTSTransform } from "express-ts-transform";
 import { Config } from '../types/Config';
 
 const config: Config = {
+  limit: 10,
   banner: () => {
     console.clear();
 
