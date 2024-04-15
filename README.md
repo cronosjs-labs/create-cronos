@@ -16,7 +16,7 @@
 
 </div>
 
-<img alt="Create Cronos" src="./example.png" />
+<img alt="Create Cronos" src="https://github.com/cronosjs-labs/create-cronos/blob/01363041973bdb16a40b86c89d4514cdafcf34b0/example.png?raw=true" />
 </div>
 
 </div>
