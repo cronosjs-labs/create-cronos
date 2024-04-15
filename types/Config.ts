@@ -7,6 +7,7 @@ interface Config {
   initializer: Middleware;
   finalizer: Middleware;
   customTemplateDir?: string;
+  limit?: number | 'all';
 }
 
 export { Config };
