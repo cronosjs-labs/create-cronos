@@ -34,7 +34,8 @@ const argv = yargs(process.argv.slice(2))
   .options({
     t: { type: 'string', alias: 't' },
     c: { type: 'string', alias: 'c' },
-    p: { type: 'string', alias: 'p' }
+    p: { type: 'string', alias: 'p' },
+    l: { type: 'string', alias: 'l' },
   })
   .parseSync();
 
@@ -175,6 +176,26 @@ const main = async () => {
     tech = await prompts({
       type: 'autocomplete',
       name: 'value',
+      limit: () => {
+        if (Config.limit) {
+          if (Config.limit === 'all') {
+            return techChoices.length;
+          } else {
+            return Config.limit;
+          }
+        }
+
+        if (argv.l) {
+          if (argv.l === 'all') {
+            return techChoices.length;
+          } else {
+            return parseInt(argv.l);
+          }
+        }
+
+        //! DEFAULT LIMIT
+        else return 10;
+      },
       suggest: (input) => {
         let filteredCountries = techChoices.filter((tech) => {
           return tech.title.toLowerCase().includes(input?.toLowerCase());
