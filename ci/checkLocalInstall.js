@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-function getSubDirs(pathToDir) {
+const getSubDirs = (pathToDir) => {
   let directories = [];
 
   let subDirectories = fs.readdirSync(pathToDir);
@@ -16,20 +16,10 @@ function getSubDirs(pathToDir) {
   return directories;
 }
 
-const templates = getSubDirs('./templates');
+const checkDependencie = (json) => {
+  const dependencies = json.dependencies;
 
-let hasError = false;
-
-for (let template of templates) {
-  let packageJson = JSON.parse(
-    fs
-      .readFileSync(path.join('./templates', template, 'package.json'))
-      .toString()
-  );
-
-  const dependencies = packageJson.dependencies;
-
-  const devDependencies = packageJson.devDependencies;
+  const devDependencies = json.devDependencies;
 
   let dependenciesString = '';
 
@@ -50,15 +40,46 @@ for (let template of templates) {
   const search2 = devDependenciesString.match(regex);
 
   if (search1 !== null || search2 !== null) {
-    console.log(`\x1b[31m❌ ${template} has local dependencies\x1b[0m`);
-    hasError = true;
+    console.log(`\x1b[31m❌ ${json.name} has local dependencies\x1b[0m`);
+    return false;
   } else {
-    console.log(`\x1b[32m✅ ${template} has no local dependencies\x1b[0m`);
+    console.log(`\x1b[32m✅ ${json.name} has no local dependencies\x1b[0m`);
+    return true;
   }
 }
 
-if (hasError) {
-  process.exit(1);
-} else {
-  process.exit(0);
+const checkLocalInstall = (template) => {
+
+  let hasErrors = false;
+
+  if (template) {
+    const templates = getSubDirs('./templates');
+
+    for (let template of templates) {
+      let packageJson = JSON.parse(
+        fs
+          .readFileSync(path.join('./templates', template, 'package.json'))
+          .toString()
+      );
+
+      if (!checkDependencie(packageJson)) {
+        hasErrors = true;
+      }
+    }
+  } else {
+    let packageJson = JSON.parse(
+      fs
+        .readFileSync('./package.json')
+        .toString()
+    );
+
+    if (!checkDependencie(packageJson)) {
+      hasErrors = true;
+    }
+  }
+
+  return hasErrors;
 }
+
+
+export { checkLocalInstall };
