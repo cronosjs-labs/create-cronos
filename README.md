@@ -59,6 +59,8 @@ npm create cronos@latest
 
 - [ ] Add support for Nuxt
 - [ ] Add support for React Native
+- [ ] Detection of configuration errors
+
 
 ### ⭐ Custom Project Generator
 

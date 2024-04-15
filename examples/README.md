@@ -1,8 +1,14 @@
-# Custom Rust Template Using Create Cronos
+# Create Cronos: Custom Project Generator
 
-## This is an example of a custom project generator using Create Cronos. This example is a Rust Hello World project generator.
+## This is an example of a custom project generator using Create Cronos API.
 
 
-npm create cronos@latest --- -c config.ts -t ./myCustomTemplatesFolder
+### Init the project generator and set the config path
+```bash
+npm create cronos@latest --- -c config.ts
+```
 
-npm create cronos@latest --- -c -t
+### Now the next time you will only need the -c flag
+```bash
+npm create cronos@latest --- -c
+```
