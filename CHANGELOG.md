@@ -2,6 +2,21 @@
 
 Return to [README.md](../../README.md)
 
+# [0.2.8] - 
+
+### Add
+
+- Vitest to test the project before the publication of newest versions
+- -l flag to list n number of templates for example `npm create cronos@latest --- -l 5` will list the first 5 templates
+
+### Update
+
+- local generation to accept the . as a path to the current directory
+
+### Remove
+
+- png image to reduce the size of the project on the npm registry.
+
 # [0.2.7] - 15/04/2024
 
 ### Add
