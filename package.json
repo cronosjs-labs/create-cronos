@@ -17,8 +17,8 @@
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
     "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
-    "test": "npx vitest --root ./test",
-    "test:ui": "npx vitest --root ./test --ui"
+    "test": "vitest --root ./test",
+    "test:ui": "vitest --root ./test --ui"
   },
   "bin": {
     "create-cronos": "./bin/app.js"
