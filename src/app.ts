@@ -30,11 +30,22 @@ import config from '../config/config';
 let Config = config;
 import yargs from 'yargs';
 
+
+const systemArgs = process.argv;
+
+const runtime = systemArgs[0].split('/').pop();
+
+if (runtime === 'bun') {
+  console.log('In this version, bun is not supported. Please use node instead');
+  process.exit(1);
+}
+
 const argv = yargs(process.argv.slice(2))
   .options({
     t: { type: 'string', alias: 't' },
     c: { type: 'string', alias: 'c' },
-    p: { type: 'string', alias: 'p' }
+    p: { type: 'string', alias: 'p' },
+    l: { type: 'string', alias: 'l' },
   })
   .parseSync();
 
@@ -175,6 +186,26 @@ const main = async () => {
     tech = await prompts({
       type: 'autocomplete',
       name: 'value',
+      limit: () => {
+        if (Config.limit) {
+          if (Config.limit === 'all') {
+            return techChoices.length;
+          } else {
+            return Config.limit;
+          }
+        }
+
+        if (argv.l) {
+          if (argv.l === 'all') {
+            return techChoices.length;
+          } else {
+            return parseInt(argv.l);
+          }
+        }
+
+        //! DEFAULT LIMIT
+        return 10;
+      },
       suggest: (input) => {
         let filteredCountries = techChoices.filter((tech) => {
           return tech.title.toLowerCase().includes(input?.toLowerCase());
@@ -243,6 +274,8 @@ const main = async () => {
   } else {
     const name = await prompt('📁 Project name: ');
 
+
+
     rl.close();
 
     let templateDir = path.join(currentDir, `../templates/${project.path}`);
@@ -255,8 +288,10 @@ const main = async () => {
       }
     }
 
-    fs.mkdirSync(name as string);
-    process.chdir(name as string);
+    if (name != "." && name != undefined && name != null) {
+      fs.mkdirSync(name as string);
+      process.chdir(name as string);
+    }
 
     const targetDir = process.cwd();
 

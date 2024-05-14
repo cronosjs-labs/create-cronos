@@ -16,7 +16,9 @@
     "build-install": "turbo build install-global --concurrency=1",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix",
-    "format": "prettier --config .prettierrc 'src/**/*.ts' --write"
+    "format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "test": "vitest --root ./test",
+    "test:ui": "vitest --root ./test --ui"
   },
   "bin": {
     "create-cronos": "./bin/app.js"
@@ -45,10 +47,13 @@
     "@types/node": "^20.11.30",
     "@types/yargs": "^17.0.32",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
-    "@typescript-eslint/parser": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0", 
+    "@vitest/ui": "^1.5.0",
     "eslint": "^8.54.0",
+    "execa": "^8.0.1",
     "prettier": "^3.1.0",
     "rollup": "^4.12.0",
-    "turbo": "^1.12.4"
+    "turbo": "^1.12.4",
+    "vitest": "^1.5.0"
   }
 }

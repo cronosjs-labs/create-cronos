@@ -1,7 +1,13 @@
 import { expressTSTransform } from "express-ts-transform";
 import { Config } from '../types/Config';
+import fs from 'fs';
+import path from "path";
+
+const packageJsonPath = path.resolve(__dirname, '../package.json');
+const version = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8')).version;
 
 const config: Config = {
+  //limit: 10,
   banner: () => {
     console.clear();
 
@@ -16,6 +22,8 @@ const config: Config = {
     );
 
     console.log('\x1b[33m────────────────────────────\x1b[37m');
+
+    console.log("\x1b[1m\x1b[31m                    v" + version + "\x1b[0m");
   },
   projects: [
     {
@@ -141,7 +149,7 @@ const config: Config = {
     },
   ],
   initializer: () => {
-    return [() => console.log("🚀 Let's go! 🚀")];
+    return [() => null];
   },
   finalizer: () => {
     return [() => console.log("🚀 Let's go! 🚀")];
