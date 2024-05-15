@@ -33,7 +33,7 @@ const config: Config = {
       description:
         'Build tool that aims to provide a faster and leaner development experience for modern web projects.',
       //! Bibliography: //* https://vitejs.dev/
-      execCommand: 'create-vite@latest',
+      execCommand: 'npm create vite@latest',
       steps: []
     },
 
@@ -41,7 +41,7 @@ const config: Config = {
       name: '\x1b[1m\x1b[33mAstro ↗\x1b[37m\x1b[0m',
       value: 'astro',
       type: 'external',
-      execCommand: 'create-astro@latest',
+      execCommand: 'npm create astro@latest',
       steps: []
     },
 
@@ -49,7 +49,7 @@ const config: Config = {
       name: '\x1b[1m\x1b[37mNext.js ↗\x1b[37m\x1b[0m',
       value: 'next',
       type: 'external',
-      execCommand: 'create-next-app@latest',
+      execCommand: 'npm create next-app@latest',
       steps: []
     },
     {
@@ -90,23 +90,21 @@ const config: Config = {
       name: '\x1b[1m\x1b[31mHono ↗\x1b[37m\x1b[0m',
       value: 'hono',
       type: 'external',
-      execCommand: 'create-hono@latest',
+      execCommand: 'npm create hono@latest',
       steps: []
     },
     {
       name: '\x1b[1m\x1b[36mRsbuild ↗\x1b[37m\x1b[0m',
       value: 'rsbuild',
       type: 'external',
-      execCommand: ['rsbuild@latest'],
-      create: true,
+      execCommand: "npm create rsbuild@latest",
       steps: []
     },
     {
       name: '\x1b[1m\x1b[31mRspack ↗\x1b[37m\x1b[0m',
       value: 'rspack',
       type: 'external',
-      execCommand: ['rspack@latest'],
-      create: true,
+      execCommand: "npm create rspack@latest",
       steps: []
     },
 
@@ -114,22 +112,22 @@ const config: Config = {
       name: '\x1b[1m\x1b[32mAngular ↗\x1b[37m\x1b[0m',
       value: 'angular',
       type: 'external',
-      execCommand: ['@angular/cli', 'new'],
+      execCommand: 'npx @angular/cli new',
       steps: []
     },
     {
       name: '\x1b[1m\x1b[33mTauri ↗\x1b[37m\x1b[0m',
       value: 'tauri',
       type: 'external',
-      execCommand: ['tauri-app@latest'],
-      create: true,
+      execCommand: 'npm create tauri-app@latest',
+
       steps: []
     },
     {
       name: '\x1b[1m\x1b[36mQuik ↗\x1b[37m\x1b[0m',
       value: 'quik',
       type: 'external',
-      execCommand: ['qwik@latest'],
+      execCommand: 'npm create qwik@latest',
       create: true,
       steps: []
     },
@@ -137,14 +135,14 @@ const config: Config = {
       name: '\x1b[1m\x1b[35mVitepress ↗\x1b[37m\x1b[0m',
       value: 'vitepress',
       type: 'external',
-      execCommand: ['vitepress', 'init'],
+      execCommand: 'npx vitepress init',
       steps: []
     },
     {
       name: '\x1b[1m\x1b[33mStarlight ↗\x1b[37m\x1b[0m',
       value: 'starlight',
       type: 'external',
-      execCommand: ['create-astro@latest', '--template', 'starlight'],
+      execCommand: 'npm create astro@latest --template starlight',
       steps: []
     },
   ],

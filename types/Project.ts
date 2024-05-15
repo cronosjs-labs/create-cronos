@@ -5,7 +5,7 @@ interface Project {
   type: 'local' | 'external';
   steps: Function[];
   path?: string;
-  execCommand?: string | string[];
+  execCommand?: string;
   create?: boolean;
 }
 
