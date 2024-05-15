@@ -16,6 +16,8 @@ Return to [README.md](../../README.md)
 ### Remove
 
 - png image to reduce the size of the project on the npm registry.
+- -t flag was deprecated
+- support for configuration in JS
 
 # [0.2.7] - 15/04/2024
 
