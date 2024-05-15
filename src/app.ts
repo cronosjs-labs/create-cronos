@@ -5,6 +5,7 @@ import readline from 'readline';
 import fs from 'fs';
 import { build } from 'esbuild';
 
+
 //! commonjs
 const path = require('path');
 const spawn = require('cross-spawn');
@@ -84,6 +85,11 @@ const main = async () => {
         //! CHECK IF THE PASSED CONFIG IS A TYPESCRIPT FILE
         if (isTS) {
           console.log('Typescript config detected');
+        }
+
+        if (!isTS) {
+          console.log('Please enter a TypeScript configuration');
+        }
 
           await build({
             entryPoints: [normalizedPath],
@@ -144,8 +150,8 @@ const main = async () => {
 
   //! PRINT BANNER
 
-  if (typeof Config.banner === 'function') {
-    Config.banner();
+  if (typeof Config.presentation === 'function') {
+    Config.presentation();
   } else {
     console.clear();
 
@@ -162,13 +168,18 @@ const main = async () => {
     console.log('\x1b[33m────────────────────────────\x1b[37m');
   }
 
-  const techChoices: { name: string; value: string } | any =
+  let techChoices: { name: string; value: string } | any =
     Config.projects.map((project) => {
       return {
         title: project.name,
         value: project.value
       };
     });
+
+  techChoices = techChoices.map((tech: any, index: number) => {
+    tech.id = index + 1;
+    return tech;
+  });
 
   //! PRE-MIDDLEWARE
 
@@ -207,8 +218,11 @@ const main = async () => {
         return 10;
       },
       suggest: (input) => {
-        let filteredCountries = techChoices.filter((tech) => {
-          return tech.title.toLowerCase().includes(input?.toLowerCase());
+
+        // let results = miniSearch.search(input);
+
+        const filteredCountries = techChoices.filter((tech) => {
+          return tech.title.toLowerCase().includes(input.toLowerCase());
         });
 
         if (!input) return techChoices;
@@ -228,10 +242,6 @@ const main = async () => {
   }
 
   //! CLONE REPO
-
-  const npx = OS === 'win32' ? 'npx.cmd' : 'npx';
-
-  const npm = OS === 'win32' ? 'npm.cmd' : 'npm';
 
   const project: Project | undefined = Config.projects.find(
     (project) => project.value === tech
@@ -254,38 +264,40 @@ const main = async () => {
   //! PROJECT CREATION
 
   if (project.type === 'external') {
-    let execCommand =
-      typeof project.execCommand === 'string'
-        ? [project.execCommand]
-        : project.execCommand;
+    let execCommand = project.execCommand;
 
-    if (
-      Config.projects.find((p) => p.value === tech)?.create === false ||
-      !project.create
-    ) {
-      spawn.sync(npx, execCommand, {
-        stdio: 'inherit'
-      });
-    } else {
-      spawn.sync(npm, ['create', execCommand], {
-        stdio: 'inherit'
-      });
+    if (!execCommand) {
+      console.log('Project not found');
+      process.exit();
     }
+    console.log('');
+
+    console.log('Conecting ...');
+
+    const arrExecCommand = execCommand.split(' ');
+
+    spawn.sync(arrExecCommand[0], arrExecCommand.slice(1), {
+      stdio: 'inherit'
+    });
+
   } else {
     const name = await prompt('📁 Project name: ');
-
-
 
     rl.close();
 
     let templateDir = path.join(currentDir, `../templates/${project.path}`);
 
-    if (typeof argv.t === 'string' || Config.customTemplateDir) {
+    if (Config.customTemplateDir) {
       if (fs.existsSync(homeDir + '/.cronos/templates')) {
         templateDir = path.join(homeDir, '.cronos', 'templates', project.path);
       } else {
         console.log('Template not found, using default');
       }
+    }
+
+    if (!name) {
+      console.log("Please enter a path");
+      process.exit(1)
     }
 
     if (name != "." && name != undefined && name != null) {

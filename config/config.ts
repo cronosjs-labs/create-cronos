@@ -1,14 +1,15 @@
 import { expressTSTransform } from "express-ts-transform";
-import { Config } from '../types/Config';
+//import { Config } from '../types/Config';
 import fs from 'fs';
 import path from "path";
+import { Config } from "../types/Config";
 
 const packageJsonPath = path.resolve(__dirname, '../package.json');
 const version = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8')).version;
 
 const config: Config = {
   //limit: 10,
-  banner: () => {
+  presentation: () => {
     console.clear();
 
     console.log('\x1b[33m────────────────────────────\x1b[37m');
@@ -25,138 +26,118 @@ const config: Config = {
 
     console.log("\x1b[1m\x1b[31m                    v" + version + "\x1b[0m");
   },
-  projects: [
-    {
-      name: '\x1b[1m\x1b[35mVite ↗\x1b[37m\x1b[0m',
-      value: 'vite',
-      type: 'external',
-      description:
-        'Build tool that aims to provide a faster and leaner development experience for modern web projects.',
-      //! Bibliography: //* https://vitejs.dev/
-      //execCommand: 'create-vite@latest',
-      customCommand: 'npm create vite@latest',
-      steps: []
-    },
-
-    {
-      name: '\x1b[1m\x1b[33mAstro ↗\x1b[37m\x1b[0m',
-      value: 'astro',
-      type: 'external',
-      //execCommand: 'create-astro@latest',
-      customCommand: 'npm create astro@latest',
-      steps: []
-    },
-
-    {
-      name: '\x1b[1m\x1b[37mNext.js ↗\x1b[37m\x1b[0m',
-      value: 'next',
-      type: 'external',
-      //execCommand: 'create-next-app@latest',
-      customCommand: 'npm create next-app@latest',
-      steps: []
-    },
-    {
-      name: '\x1b[1m\x1b[36mExpress\x1b[37m\x1b[0m',
-      value: 'express',
-      type: 'local',
-      path: 'express',
-      steps: [
-        () =>
-          console.log(`
-          To get started:
-          1. cd <project-name>
-          2. npm install
-          3. npm run dev
-        `)
-      ]
-    },
-    {
-      name: '\x1b[1m\x1b[36mExpress Typescript\x1b[37m\x1b[0m',
-      value: 'express-ts',
-      type: 'local',
-      path: 'express',
-      steps: [
-        () => {
-          console.log('Creating a new Express project with Typescript');
-        },
-        () => expressTSTransform(process.cwd()),
-        () =>
-          console.log(`
-          To get started:
-          1. cd <project-name>
-          2. npm install
-          3. npm run dev
-        `)
-      ]
-    },
-    {
-      name: '\x1b[1m\x1b[31mHono ↗\x1b[37m\x1b[0m',
-      value: 'hono',
-      type: 'external',
-      //execCommand: 'create-hono@latest',
-      customCommand: 'npm create hono@latest',
-      steps: []
-    },
-    {
-      name: '\x1b[1m\x1b[36mRsbuild ↗\x1b[37m\x1b[0m',
-      value: 'rsbuild',
-      type: 'external',
-      customCommand: 'npm create rsbuild@łatest',
-      steps: []
-    },
-    {
-      name: '\x1b[1m\x1b[31mRspack ↗\x1b[37m\x1b[0m',
-      value: 'rspack',
-      type: 'external',
-      customCommand: 'npm create rspack@latest',
-      steps: []
-    },
-
-    {
-      name: '\x1b[1m\x1b[32mAngular ↗\x1b[37m\x1b[0m',
-      value: 'angular',
-      type: 'external',
-      //execCommand: ['@angular/cli', 'new'],
-      //steps: []
-      customCommand: 'npx @angular/cli new',
-    },
-    {
-      name: '\x1b[1m\x1b[33mTauri ↗\x1b[37m\x1b[0m',
-      value: 'tauri',
-      type: 'external',
-      //execCommand: ['tauri-app@latest'],
-      //create: true,
-      customCommand: 'npm create tauri-app@latest',
-      steps: []
-    },
-    {
-      name: '\x1b[1m\x1b[36mQuik ↗\x1b[37m\x1b[0m',
-      value: 'quik',
-      type: 'external',
-      //execCommand: ['qwik@latest'],
-      //create: true,
-      customCommand: 'npm create qwik@latest',
-      steps: []
-    },
-    {
-      name: '\x1b[1m\x1b[35mVitepress ↗\x1b[37m\x1b[0m',
-      value: 'vitepress',
-      type: 'external',
-      //execCommand: ['vitepress', 'init'],
-      customCommand: 'npm create vitepress@latest',
-      steps: []
-    },
-    {
-      name: '\x1b[1m\x1b[33mStarlight ↗\x1b[37m\x1b[0m',
-      value: 'starlight',
-      type: 'external',
-      //execCommand: ['create-astro@latest', '--template', 'starlight'],
-      customCommand: 'npm create create-astro@latest --template starlight',
-      steps: []
-    },
-  ],
   initializer: () => {
     return [() => null];
+  },
+  projects: {
+    local: [
+      {
+        name: '\x1b[1m\x1b[36mExpress\x1b[37m\x1b[0m',
+        value: 'express',
+
+        path: 'express',
+        steps: [
+          () =>
+            console.log(`
+            To get started:
+            1. cd <project-name>
+            2. npm install
+            3. npm run dev
+          `)
+        ]
+      },
+      {
+        name: '\x1b[1m\x1b[36mExpress Typescript\x1b[37m\x1b[0m',
+        value: 'express-ts',
+
+        path: 'express',
+        steps: [
+          () => {
+            console.log('Creating a new Express project with Typescript');
+          },
+          () => expressTSTransform(process.cwd()),
+          () =>
+            console.log(`
+            To get started:
+            1. cd <project-name>
+            2. npm install
+            3. npm run dev
+          `)
+        ]
+      },
+    ],
+    external: [
+      {
+        name: '\x1b[1m\x1b[35mVite ↗\x1b[37m\x1b[0m',
+        value: 'vite',
+        description:
+          'Build tool that aims to provide a faster and leaner development experience for modern web projects.',
+        //! Bibliography: //* https://vitejs.dev/
+        execCommand: 'npm create vite@latest',
+        steps: []
+      },
+      {
+        name: '\x1b[1m\x1b[33mAstro ↗\x1b[37m\x1b[0m',
+        value: 'astro',
+        execCommand: 'npm create astro@latest',
+        steps: []
+      },
+      {
+        name: '\x1b[1m\x1b[37mNext.js ↗\x1b[37m\x1b[0m',
+        value: 'next',
+        execCommand: 'npm create next-app@latest',
+        steps: []
+      },
+      {
+        name: '\x1b[1m\x1b[31mHono ↗\x1b[37m\x1b[0m',
+        value: 'hono',
+        execCommand: 'npm create hono@latest',
+        steps: []
+      },
+      {
+        name: '\x1b[1m\x1b[36mRsbuild ↗\x1b[37m\x1b[0m',
+        value: 'rsbuild',
+        execCommand: "npm create rsbuild@latest",
+        steps: []
+      },
+      {
+        name: '\x1b[1m\x1b[31mRspack ↗\x1b[37m\x1b[0m',
+        value: 'rspack',
+        execCommand: "npm create rspack@latest",
+        steps: []
+      },
+
+      {
+        name: '\x1b[1m\x1b[32mAngular ↗\x1b[37m\x1b[0m',
+        value: 'angular',
+        execCommand: 'npx @angular/cli new',
+        steps: []
+      },
+      {
+        name: '\x1b[1m\x1b[33mTauri ↗\x1b[37m\x1b[0m',
+        value: 'tauri',
+        execCommand: 'npm create tauri-app@latest',
+        steps: []
+      },
+      {
+        name: '\x1b[1m\x1b[36mQuik ↗\x1b[37m\x1b[0m',
+        value: 'quik',
+        execCommand: 'npm create qwik@latest',
+        steps: []
+      },
+      {
+        name: '\x1b[1m\x1b[35mVitepress ↗\x1b[37m\x1b[0m',
+        value: 'vitepress',
+        execCommand: 'npx vitepress init',
+        steps: []
+      },
+      {
+        name: '\x1b[1m\x1b[33mStarlight ↗\x1b[37m\x1b[0m',
+        value: 'starlight',
+        execCommand: 'npm create astro@latest --template starlight',
+        steps: []
+      },
+    ],
   },
   finalizer: () => {
     return [() => console.log("🚀 Let's go! 🚀")];
