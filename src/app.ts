@@ -85,6 +85,11 @@ const main = async () => {
         //! CHECK IF THE PASSED CONFIG IS A TYPESCRIPT FILE
         if (isTS) {
           console.log('Typescript config detected');
+        }
+
+        if (!isTS) {
+          console.log('Please enter a TypeScript configuration');
+        }
 
           await build({
             entryPoints: [normalizedPath],
@@ -145,8 +150,8 @@ const main = async () => {
 
   //! PRINT BANNER
 
-  if (typeof Config.banner === 'function') {
-    Config.banner();
+  if (typeof Config.presentation === 'function') {
+    Config.presentation();
   } else {
     console.clear();
 
@@ -282,12 +287,17 @@ const main = async () => {
 
     let templateDir = path.join(currentDir, `../templates/${project.path}`);
 
-    if (typeof argv.t === 'string' || Config.customTemplateDir) {
+    if (Config.customTemplateDir) {
       if (fs.existsSync(homeDir + '/.cronos/templates')) {
         templateDir = path.join(homeDir, '.cronos', 'templates', project.path);
       } else {
         console.log('Template not found, using default');
       }
+    }
+
+    if (!name) {
+      console.log("Please enter a path");
+      process.exit(1)
     }
 
     if (name != "." && name != undefined && name != null) {
